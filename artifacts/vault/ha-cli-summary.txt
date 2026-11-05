@@ -1,0 +1,23 @@
+Thu Nov  5 12:37:57 UTC 2026
+NAME          	NAMESPACE     	REVISION	UPDATED                                	STATUS  	CHART       	APP VERSION
+infrasec-vault	infrasec-vault	4       	2026-11-05 12:34:50.090862237 +0000 UTC	deployed	vault-0.31.0	1.20.4     
+NAME                                             READY   STATUS    RESTARTS   AGE
+infrasec-vault-0                                 1/1     Running   0          11m
+infrasec-vault-1                                 1/1     Running   0          11m
+infrasec-vault-2                                 1/1     Running   0          11m
+infrasec-vault-agent-injector-5fbb7c8874-l6gh4   1/1     Running   0          5m50s
+NAME                     STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+audit-infrasec-vault-0   Bound    pvc-bce1fb25-bad5-47f5-94f9-3eb2eaffefa5   1Gi        RWO            local-path     <unset>                 11m
+audit-infrasec-vault-1   Bound    pvc-ab8b3fe5-2348-4779-96df-f138520811a3   1Gi        RWO            local-path     <unset>                 11m
+audit-infrasec-vault-2   Bound    pvc-789c6886-acf7-4933-9ae0-b393ee511b60   1Gi        RWO            local-path     <unset>                 11m
+data-infrasec-vault-0    Bound    pvc-352be5a1-ead1-44a3-968b-288f4942683a   1Gi        RWO            local-path     <unset>                 11m
+data-infrasec-vault-1    Bound    pvc-e26d6d93-34cc-471c-a70e-8beb88b697e8   1Gi        RWO            local-path     <unset>                 11m
+data-infrasec-vault-2    Bound    pvc-592cb513-4e3a-4c1f-8bc7-55ccf63fd044   1Gi        RWO            local-path     <unset>                 11m
+NAME                                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+infrasec-vault                      ClusterIP   10.108.142.2    <none>        8200/TCP,8201/TCP   11m
+infrasec-vault-active               ClusterIP   10.97.49.109    <none>        8200/TCP,8201/TCP   11m
+infrasec-vault-agent-injector-svc   ClusterIP   10.105.98.37    <none>        443/TCP             14m
+infrasec-vault-internal             ClusterIP   None            <none>        8200/TCP,8201/TCP   11m
+infrasec-vault-standby              ClusterIP   10.102.68.239   <none>        8200/TCP,8201/TCP   11m
+infrasec-vault-ui                   ClusterIP   10.100.204.72   <none>        8200/TCP            11m
+yes

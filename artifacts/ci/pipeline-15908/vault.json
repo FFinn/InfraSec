@@ -1,0 +1,14 @@
+{
+  "commit": "cf8dae142ccd4dd0bbd3d6f02003601b798c2c91",
+  "pipeline_id": "15908",
+  "recorded_at": "2026-11-05T12:52:41.093654+00:00",
+  "ok": true,
+  "secret": {
+    "key": "deploy_marker",
+    "length": 48,
+    "sha256": "7dda7691de838812c99938f119dfbc90bd8308bee3a5477b806f8b8f41bf3712",
+    "path": "secret/data/infrasec/ci/deploy"
+  },
+  "token_revoked": true,
+  "tls_verified": true
+}

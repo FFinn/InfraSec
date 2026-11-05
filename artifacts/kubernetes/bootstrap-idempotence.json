@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "checked_at": "2026-11-05T13:31:40.757186+00:00",
+  "second_run_succeeded": true,
+  "ci_token_reused": true,
+  "ci_token_value_unchanged": true,
+  "secret_resource_versions_unchanged": true,
+  "pod_uids_unchanged": true,
+  "private_file_mode": "0o600",
+  "deployments_not_applied": true
+}

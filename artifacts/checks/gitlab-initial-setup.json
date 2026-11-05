@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "project_id": 1165,
+  "variables": [],
+  "project_verified": true,
+  "runner": {
+    "description": "InfraSec",
+    "tag_list": [
+      "infrasec"
+    ],
+    "run_untagged": false,
+    "locked": true,
+    "access_level": "ref_protected",
+    "maximum_timeout": 1800,
+    "id": 71,
+    "project_id": 1165,
+    "reused_private_file": false,
+    "authentication_token_saved_outside_repository": true
+  },
+  "registry_token": {
+    "id": 27,
+    "project_id": 1165,
+    "scopes": [
+      "read_registry"
+    ],
+    "expires_at": "2026-11-12T00:00:00.000Z",
+    "reused_private_file": false,
+    "credentials_saved_outside_repository": true
+  },
+  "checked_at": "2026-11-05T12:20:09.513097+00:00"
+}

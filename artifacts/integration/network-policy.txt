@@ -1,0 +1,4 @@
+frontend_to_backend_reachable=true; http_status=401
+outside_namespace_denied=true; connection_timed_out=true
+frontend_to_backend_reachable=true; http_status=401
+network_policy_check_passed=true

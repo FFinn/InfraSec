@@ -128,6 +128,9 @@ def health(client):
 def run(args):
     private = Path(args.private_dir).expanduser().resolve()
     require(private != ROOT and ROOT not in private.parents, 'Ключи нужно хранить вне репозитория')
+    evidence = Path(args.evidence_file).expanduser().resolve()
+    require((ROOT / 'artifacts').resolve() in evidence.parents,
+            'Сводку можно записать только в каталог artifacts проекта')
     private.mkdir(mode=0o700, parents=True, exist_ok=True)
     require(not private.stat().st_mode & 0o077, 'Закрытая папка должна иметь права 0700')
     ca = base64.b64decode(kubectl('get', 'secret', 'infrasec-vault-tls', '-o',
@@ -154,6 +157,14 @@ def run(args):
         keys = initial.get('keys_base64', [])
         require(len(keys) == 3 and bool(initial.get('root_token')), 'Нужны три доли именно нового Vault')
         token = initial['root_token']
+        if args.admin_file:
+            admin_path = Path(args.admin_file).expanduser().resolve()
+            require(admin_path != ROOT and ROOT not in admin_path.parents and
+                    admin_path.is_file() and not admin_path.stat().st_mode & 0o077,
+                    'Административный файл должен находиться вне Git и иметь права 0600')
+            admin = json.loads(admin_path.read_text())
+            token = admin.get('token') or admin.get('root_token')
+            require(isinstance(token, str) and bool(token), 'Нет административного токена')
         leader_status = unseal(clients[0], keys)
         require(leader_status.get('n') == 3 and leader_status.get('t') == 2 and
                 leader_status.get('storage_type') == 'raft',
@@ -223,7 +234,7 @@ def run(args):
                 'active_service_endpoints': endpoints,
                 'physical_ha_limit': 'Три экземпляра Raft размещены на одной учебной ВМ; отказ ВМ остановит весь кластер.'}
         save(state_path, {'cluster_id': leader_status['cluster_id'], 'shares': 3, 'threshold': 2})
-        save(Path(args.evidence_file), safe)
+        save(evidence, safe)
         print(json.dumps(safe, ensure_ascii=False, indent=2))
         return 0
     finally:
@@ -241,6 +252,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--private-dir', required=True)
     parser.add_argument('--base-port', type=int, default=18210)
+    parser.add_argument('--admin-file', help='Внешний токен для проверки после отзыва initial root token')
     parser.add_argument('--evidence-file', default='artifacts/vault/ha-status.json')
     args = parser.parse_args()
     os.umask(0o077)

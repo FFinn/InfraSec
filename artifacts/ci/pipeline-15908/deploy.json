@@ -1,0 +1,34 @@
+{
+  "commit": "cf8dae142ccd4dd0bbd3d6f02003601b798c2c91",
+  "pipeline_id": "15908",
+  "recorded_at": "2026-11-05T12:56:11.057732+00:00",
+  "ok": true,
+  "tls_verified": true,
+  "vault_token_revoked": true,
+  "marker_key": "deploy_marker",
+  "marker_sha256": "7dda7691de838812c99938f119dfbc90bd8308bee3a5477b806f8b8f41bf3712",
+  "kubernetes_resources_changed": [
+    "Deployment/frontend",
+    "Deployment/backend"
+  ],
+  "deployments": [
+    {
+      "name": "frontend",
+      "namespace": "infrasec",
+      "generation": 4,
+      "updated_replicas": 1,
+      "available_replicas": 1,
+      "ready": true,
+      "image": "devsecops.gitlab.yandexcloud.net:5050/s2417991/infrasec/app:cf8dae142ccd4dd0bbd3d6f02003601b798c2c91"
+    },
+    {
+      "name": "backend",
+      "namespace": "infrasec",
+      "generation": 3,
+      "updated_replicas": 1,
+      "available_replicas": 1,
+      "ready": true,
+      "image": "devsecops.gitlab.yandexcloud.net:5050/s2417991/infrasec/app:cf8dae142ccd4dd0bbd3d6f02003601b798c2c91"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+Kubernetes: фактический вывод kubectl и проверка внедрённых файлов
+Время проверки: 2026-11-05T13:11:08.275491+00:00
+
+kubectl -n infrasec get pods -o wide
+NAME                        READY   STATUS    RESTARTS   AGE   IP               NODE                   NOMINATED NODE   READINESS GATES
+backend-5f9d5c6959-hzc9z    2/2     Running   0          23m   10.200.210.115   fhmjsse5e304ls6j56m0   <none>           <none>
+frontend-7c9d4dcc99-mx7sb   2/2     Running   0          23m   10.200.210.114   fhmjsse5e304ls6j56m0   <none>           <none>
+
+Файл /vault/secrets/config.json (значения не выводятся):
+frontend: под и внедрённый файл секрета
+{
+  "app_ready": true,
+  "agent_ready": true,
+  "init_completed": true,
+  "permissions_0400": true,
+  "owner_uid_1000": true,
+  "secret_file_matches_vault_values": true,
+  "app_has_no_jwt_or_vault_token_file": true,
+  "containers_hardened": true
+}
+backend: под и внедрённый файл секрета
+{
+  "app_ready": true,
+  "agent_ready": true,
+  "init_completed": true,
+  "permissions_0400": true,
+  "owner_uid_1000": true,
+  "secret_file_matches_vault_values": true,
+  "app_has_no_jwt_or_vault_token_file": true,
+  "containers_hardened": true
+}
+
+Полная проверка: 21 успешно, 0 ошибок.
+Источник: scripts/verify_integration.py, artifacts/integration/verification.json

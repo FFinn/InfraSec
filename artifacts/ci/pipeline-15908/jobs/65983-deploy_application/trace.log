@@ -1,0 +1,77 @@
+2026-11-05T12:55:45.686904Z 00O [0KRunning with gitlab-runner 19.3.1 (a16f5092)[0;m
+2026-11-05T12:55:45.686929Z 00O [0K  on InfraSec Mac yQulHKIMk, system ID: r_K8dSHSx0C0Ah[0;m
+2026-11-05T12:55:45.686938Z 00O [0K  feature flags: FF_NETWORK_PER_BUILD:true, FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR:true[0;m
+2026-11-05T12:55:45.686994Z 00O section_start:1793883345:prepare_executor[0K
+2026-11-05T12:55:45.687000Z 00O+[0K[36;1mPreparing the "docker" executor[0;m[0;m
+2026-11-05T12:55:45.710333Z 00O [0KUsing Docker executor with image python:3.12-slim-bookworm ...[0;m
+2026-11-05T12:55:46.280088Z 00O [0KUsing effective pull policy of [always] for container python:3.12-slim-bookworm[0;m
+2026-11-05T12:55:46.284385Z 00O [0KPulling docker image python:3.12-slim-bookworm ...[0;m
+2026-11-05T12:55:48.310765Z 00O [0KUsing docker image sha256:4703adf8fdd93b1441114e4f87ce2c62f7373fc5f88bda6a546c551625bcc71c for python:3.12-slim-bookworm with digest python@sha256:da54eb86849fe19be7584d8b3f291fcf0c53c196760ab3d70dc6382f681ef9c0 ...[0;m
+2026-11-05T12:55:48.310777Z 00O [0KNot using umask - FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR is set![0;m
+2026-11-05T12:55:48.310782Z 00O section_end:1793883348:prepare_executor[0K
+2026-11-05T12:55:48.310892Z 00O+section_start:1793883348:prepare_script[0K
+2026-11-05T12:55:48.310897Z 00O+[0K[36;1mPreparing environment[0;m[0;m
+2026-11-05T12:55:48.312649Z 00O [0KUsing effective pull policy of [always] for container sha256:d3ba89fb5beeda0672c1a8241762b1d3dcff4a84cb48adf69c5a16c8834d884d[0;m
+2026-11-05T12:55:48.550613Z 01O Running on runner-yqulhkimk-project-1165-concurrent-0 via 044c275c6d0a...
+2026-11-05T12:55:48.640441Z 00O section_end:1793883348:prepare_script[0K
+2026-11-05T12:55:48.641174Z 00O+section_start:1793883348:get_sources[0K
+2026-11-05T12:55:48.641179Z 00O+[0K[36;1mGetting source from Git repository[0;m[0;m
+2026-11-05T12:55:48.821824Z 01O [32;1mGitaly correlation ID: 01M6NWF43B6FX5PBRTQRY6MKZT[0;m
+2026-11-05T12:55:48.824300Z 01O [32;1mFetching changes...[0;m
+2026-11-05T12:55:48.825465Z 01O Reinitialized existing Git repository in /builds/s2417991/infrasec/.git/
+2026-11-05T12:55:48.826560Z 01O [32;1mCreated fresh repository.[0;m
+2026-11-05T12:55:49.482758Z 01O [32;1mChecking out cf8dae14 as detached HEAD (ref is infrastructure)...[0;m
+2026-11-05T12:55:49.493334Z 01O Removing ci-artifacts/
+2026-11-05T12:55:49.527083Z 01O 
+2026-11-05T12:55:49.527092Z 01O [32;1mSkipping Git submodules setup[0;m
+2026-11-05T12:55:49.629769Z 00O section_end:1793883349:get_sources[0K
+2026-11-05T12:55:49.630338Z 00O+section_start:1793883349:download_artifacts[0K
+2026-11-05T12:55:49.630341Z 00O+[0K[36;1mDownloading artifacts[0;m[0;m
+2026-11-05T12:55:49.799058Z 01O [32;1mDownloading artifacts for build_image (65982)...[0;m
+2026-11-05T12:55:50.126161Z 01E Downloading artifacts from coordinator... ok      [0;m  correlation_id[0;m=01M6NWF94E15J9KR2M2TM4212D id[0;m=65982 status[0;m=200 token[0;m=68_DtFEsg
+2026-11-05T12:55:50.129581Z 01O [32;1mDownloading artifacts for vault_secrets (65981)...[0;m
+2026-11-05T12:55:50.443899Z 01E Downloading artifacts from coordinator... ok      [0;m  correlation_id[0;m=01M6NWF9ES4RAK5ZXNFBVEY7T4 id[0;m=65981 status[0;m=200 token[0;m=68_DtFEsg
+2026-11-05T12:55:50.558305Z 00O section_end:1793883350:download_artifacts[0K
+2026-11-05T12:55:50.558955Z 00O+section_start:1793883350:step_script[0K
+2026-11-05T12:55:50.558973Z 00O+[0K[36;1mExecuting "step_script" stage of the job script[0;m[0;m
+2026-11-05T12:55:50.558990Z 00O [0KUsing effective pull policy of [always] for container python:3.12-slim-bookworm[0;m
+2026-11-05T12:55:50.563986Z 00O [0KUsing docker image sha256:4703adf8fdd93b1441114e4f87ce2c62f7373fc5f88bda6a546c551625bcc71c for python:3.12-slim-bookworm with digest python@sha256:da54eb86849fe19be7584d8b3f291fcf0c53c196760ab3d70dc6382f681ef9c0 ...[0;m
+2026-11-05T12:55:50.819646Z 01O [32;1m$ set +x[0;m
+2026-11-05T12:55:50.819654Z 01O [32;1m$ test "${CI_DEBUG_TRACE:-false}" != "true"[0;m
+2026-11-05T12:55:50.819655Z 01O [32;1m$ python -m pip install --no-cache-dir -r ci/requirements.txt[0;m
+2026-11-05T12:55:53.110429Z 01O Collecting requests==2.32.5 (from -r ci/requirements.txt (line 1))
+2026-11-05T12:55:53.525145Z 01O   Downloading requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-11-05T12:55:54.000260Z 01O Collecting PyYAML==6.0.3 (from -r ci/requirements.txt (line 2))
+2026-11-05T12:55:54.097782Z 01O   Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (2.4 kB)
+2026-11-05T12:55:54.680175Z 01O Collecting charset_normalizer<4,>=2 (from requests==2.32.5->-r ci/requirements.txt (line 1))
+2026-11-05T12:55:54.766646Z 01O   Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (46 kB)
+2026-11-05T12:55:54.944267Z 01O Collecting idna<4,>=2.5 (from requests==2.32.5->-r ci/requirements.txt (line 1))
+2026-11-05T12:55:55.023999Z 01O   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+2026-11-05T12:55:55.146212Z 01O Collecting urllib3<3,>=1.21.1 (from requests==2.32.5->-r ci/requirements.txt (line 1))
+2026-11-05T12:55:55.233499Z 01O   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+2026-11-05T12:55:55.349495Z 01O Collecting certifi>=2017.4.17 (from requests==2.32.5->-r ci/requirements.txt (line 1))
+2026-11-05T12:55:55.438404Z 01O   Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+2026-11-05T12:55:55.530369Z 01O Downloading requests-2.32.5-py3-none-any.whl (64 kB)
+2026-11-05T12:55:55.640755Z 01O Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (775 kB)
+2026-11-05T12:55:55.960695Z 01O    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 775.1/775.1 kB 2.6 MB/s eta 0:00:00
+2026-11-05T12:55:56.053593Z 01O Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+2026-11-05T12:55:56.159278Z 01O Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (246 kB)
+2026-11-05T12:55:56.349888Z 01O Downloading idna-3.20-py3-none-any.whl (69 kB)
+2026-11-05T12:55:56.459607Z 01O Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+2026-11-05T12:55:56.546527Z 01O Installing collected packages: urllib3, PyYAML, idna, charset_normalizer, certifi, requests
+2026-11-05T12:55:56.738212Z 01O Successfully installed PyYAML-6.0.3 certifi-2026.10.23 charset_normalizer-3.5.2 idna-3.20 requests-2.32.5 urllib3-2.8.0
+2026-11-05T12:55:56.738229Z 01E WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+2026-11-05T12:55:56.785838Z 01O [32;1m$ python ci/deploy.py[0;m
+2026-11-05T12:56:11.060098Z 01O Развёрнуты frontend и backend. Готовность новых реплик подтверждена.
+2026-11-05T12:56:11.060117Z 01O Секрет deploy_marker использован для контрольной суммы аннотации; значение не выводилось.
+2026-11-05T12:56:11.193684Z 00O section_end:1793883371:step_script[0K
+2026-11-05T12:56:11.194348Z 00O+section_start:1793883371:upload_artifacts_on_success[0K
+2026-11-05T12:56:11.194355Z 00O+[0K[36;1mUploading artifacts for successful job[0;m[0;m
+2026-11-05T12:56:11.368748Z 01O [32;1mUploading artifacts...[0;m
+2026-11-05T12:56:11.404003Z 01E ci-artifacts/deploy.json: found 1 matching artifact files and directories[0;m 
+2026-11-05T12:56:12.670351Z 01E Uploading artifacts as "archive" to coordinator... 201 Created[0;m  correlation_id[0;m=01M6NWFYDNT51MTAAVQ4SJ8H7J id[0;m=65983 status[0;m=201 token[0;m=68_DtFEsg
+2026-11-05T12:56:12.768149Z 00O section_end:1793883372:upload_artifacts_on_success[0K
+2026-11-05T12:56:12.768459Z 00O+section_start:1793883372:cleanup_file_variables[0K
+2026-11-05T12:56:12.768463Z 00O+[0K[36;1mCleaning up project directory and file based variables[0;m[0;m
+2026-11-05T12:56:13.006781Z 00O section_end:1793883373:cleanup_file_variables[0K
+2026-11-05T12:56:13.322331Z 00O [32;1mJob succeeded[0;m

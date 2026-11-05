@@ -1,0 +1,12 @@
+{
+  "reader_search_succeeded": true,
+  "reader_search_exit_code": 0,
+  "password_hashes_not_readable": true,
+  "reader_write_denied_code": 50,
+  "anonymous_user_search_denied": true,
+  "ok": true,
+  "checked_at": "2026-11-05T11:54:55.834772+00:00",
+  "password_file_trailing_newline": false,
+  "password_file_mode_0600": true,
+  "verification_exit_code": 0
+}

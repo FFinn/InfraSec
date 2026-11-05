@@ -1,0 +1,204 @@
+{
+  "started_at": "2026-11-05T13:10:44.721608+00:00",
+  "checks": [
+    {
+      "name": "Без входа профиль и API приложения недоступны",
+      "ok": true,
+      "details": {
+        "profile_status": 401,
+        "api_status": 401,
+        "access_denied": true
+      }
+    },
+    {
+      "name": "Внутренний сервис проверяет ключ Vault",
+      "ok": true,
+      "details": {
+        "without_key_status": 401,
+        "with_key_status": 200,
+        "response_contains_no_secret": true
+      }
+    },
+    {
+      "name": "Вход OIDC с учётной записью LDAP alice",
+      "ok": true,
+      "details": {
+        "login_completed": true,
+        "profile_status": 200,
+        "protected_api_status": 200,
+        "session_contains_no_tokens": true,
+        "responses_contain_no_secrets": true,
+        "logout_denies_access": true
+      }
+    },
+    {
+      "name": "Вход OIDC с учётной записью LDAP bob",
+      "ok": true,
+      "details": {
+        "login_completed": true,
+        "profile_status": 200,
+        "protected_api_status": 200,
+        "session_contains_no_tokens": true,
+        "responses_contain_no_secrets": true,
+        "logout_denies_access": true
+      }
+    },
+    {
+      "name": "Vault разблокирован, сертификат TLS проверен",
+      "ok": true,
+      "details": {
+        "initialized": true,
+        "sealed": false,
+        "tls_certificate_verified": true
+      }
+    },
+    {
+      "name": "frontend: под и внедрённый файл секрета",
+      "ok": true,
+      "details": {
+        "app_ready": true,
+        "agent_ready": true,
+        "init_completed": true,
+        "permissions_0400": true,
+        "owner_uid_1000": true,
+        "secret_file_matches_vault_values": true,
+        "app_has_no_jwt_or_vault_token_file": true,
+        "containers_hardened": true
+      }
+    },
+    {
+      "name": "frontend: вход в Vault и чтение своего пути",
+      "ok": true,
+      "details": {
+        "login_status": 200,
+        "own_secret_status": 200,
+        "secret_matches": true,
+        "minimal_policy": true
+      }
+    },
+    {
+      "name": "frontend: чужой путь Vault запрещён",
+      "ok": true,
+      "details": {
+        "status": 403,
+        "access_denied": true
+      }
+    },
+    {
+      "name": "frontend: запись в Vault запрещена",
+      "ok": true,
+      "details": {
+        "status": 403,
+        "access_denied": true
+      }
+    },
+    {
+      "name": "frontend: чужая роль Vault запрещена",
+      "ok": true,
+      "details": {
+        "status": 403,
+        "access_denied": true
+      }
+    },
+    {
+      "name": "frontend: default ServiceAccount не может войти в Vault",
+      "ok": true,
+      "details": {
+        "status": 403,
+        "access_denied": true
+      }
+    },
+    {
+      "name": "frontend: неверная аудитория JWT отклонена",
+      "ok": true,
+      "details": {
+        "status": 403,
+        "access_denied": true
+      }
+    },
+    {
+      "name": "backend: под и внедрённый файл секрета",
+      "ok": true,
+      "details": {
+        "app_ready": true,
+        "agent_ready": true,
+        "init_completed": true,
+        "permissions_0400": true,
+        "owner_uid_1000": true,
+        "secret_file_matches_vault_values": true,
+        "app_has_no_jwt_or_vault_token_file": true,
+        "containers_hardened": true
+      }
+    },
+    {
+      "name": "backend: вход в Vault и чтение своего пути",
+      "ok": true,
+      "details": {
+        "login_status": 200,
+        "own_secret_status": 200,
+        "secret_matches": true,
+        "minimal_policy": true
+      }
+    },
+    {
+      "name": "backend: чужой путь Vault запрещён",
+      "ok": true,
+      "details": {
+        "status": 403,
+        "access_denied": true
+      }
+    },
+    {
+      "name": "backend: запись в Vault запрещена",
+      "ok": true,
+      "details": {
+        "status": 403,
+        "access_denied": true
+      }
+    },
+    {
+      "name": "backend: чужая роль Vault запрещена",
+      "ok": true,
+      "details": {
+        "status": 403,
+        "access_denied": true
+      }
+    },
+    {
+      "name": "backend: default ServiceAccount не может войти в Vault",
+      "ok": true,
+      "details": {
+        "status": 403,
+        "access_denied": true
+      }
+    },
+    {
+      "name": "backend: неверная аудитория JWT отклонена",
+      "ok": true,
+      "details": {
+        "status": 403,
+        "access_denied": true
+      }
+    },
+    {
+      "name": "Отзыв проверочного токена Vault №1",
+      "ok": true,
+      "details": {
+        "status": 204,
+        "revoked": true
+      }
+    },
+    {
+      "name": "Отзыв проверочного токена Vault №2",
+      "ok": true,
+      "details": {
+        "status": 204,
+        "revoked": true
+      }
+    }
+  ],
+  "finished_at": "2026-11-05T13:11:08.275491+00:00",
+  "passed": 21,
+  "failed": 0,
+  "ok": true
+}

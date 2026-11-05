@@ -1,0 +1,17 @@
+{
+  "id": 15908,
+  "iid": 2,
+  "project_id": 1165,
+  "sha": "cf8dae142ccd4dd0bbd3d6f02003601b798c2c91",
+  "ref": "infrastructure",
+  "status": "success",
+  "source": "api",
+  "web_url": "https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/pipelines/15908",
+  "created_at": "2026-11-05T12:47:30.926Z",
+  "started_at": "2026-11-05T12:47:34.218Z",
+  "finished_at": "2026-11-05T12:56:29.089Z",
+  "updated_at": "2026-11-05T12:56:29.103Z",
+  "duration": 524,
+  "queued_duration": 3,
+  "yaml_errors": null
+}

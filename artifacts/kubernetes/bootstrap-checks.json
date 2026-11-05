@@ -1,0 +1,224 @@
+{
+  "checked_at": "2026-11-05T12:07:14.466079+00:00",
+  "namespace": "infrasec",
+  "pods": [
+    {
+      "component": "frontend",
+      "name": "frontend-5c545775c4-sdrzz",
+      "uid": "427681a4-dcf7-4af5-844f-22ea4cbd2279",
+      "phase": "Running",
+      "service_account": "frontend-sa",
+      "automount_service_account_token": false,
+      "containers": [
+        {
+          "name": "app",
+          "ready": true,
+          "restart_count": 0,
+          "image": "docker.io/library/infrasec-app:bootstrap",
+          "image_id": "sha256:73e50c8e0ab69dc51091b96193f1cbe93c7611e0bfc7a712565e37efa0f0f804"
+        },
+        {
+          "name": "vault-agent",
+          "ready": true,
+          "restart_count": 0,
+          "image": "docker.io/hashicorp/vault:1.20.4",
+          "image_id": "docker.io/hashicorp/vault@sha256:268bb80aa9c6d13d65fcfa05c0c268caca068952240a8087291a6ce0b66e3a10"
+        }
+      ],
+      "init_exit_code": 0,
+      "security_contexts": {
+        "vault-agent-init": {
+          "allowPrivilegeEscalation": false,
+          "capabilities": {
+            "drop": [
+              "ALL"
+            ]
+          },
+          "readOnlyRootFilesystem": true,
+          "runAsGroup": 1000,
+          "runAsNonRoot": true,
+          "runAsUser": 1000,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "app": {
+          "allowPrivilegeEscalation": false,
+          "capabilities": {
+            "drop": [
+              "ALL"
+            ]
+          },
+          "readOnlyRootFilesystem": true,
+          "runAsGroup": 1000,
+          "runAsNonRoot": true,
+          "runAsUser": 1000,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "vault-agent": {
+          "allowPrivilegeEscalation": false,
+          "capabilities": {
+            "drop": [
+              "ALL"
+            ]
+          },
+          "readOnlyRootFilesystem": true,
+          "runAsGroup": 1000,
+          "runAsNonRoot": true,
+          "runAsUser": 1000,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        }
+      },
+      "app_has_no_jwt_mount": true,
+      "secret_file_checks": {
+        "file_path": "/vault/secrets/config.json",
+        "file_mode": "0o400",
+        "owner_uid": 1000,
+        "owner_gid": 1000,
+        "keys": [
+          "backend_api_key",
+          "oidc_client_secret",
+          "session_secret"
+        ],
+        "all_values_nonempty": true,
+        "file_sha256": "57321819814ea3606561e9d46d514a00af9db20a11d8d8ebc6e23af7e6153c62",
+        "run_uid": 1000,
+        "default_kubernetes_jwt_absent": true,
+        "vault_jwt_absent": true,
+        "vault_token_absent": true,
+        "health_status": 200,
+        "unauthenticated_status": 401,
+        "frontend_to_backend_status": 200,
+        "backend_authenticated": true
+      },
+      "agent_log_checks": {
+        "vault-agent-init": {
+          "authentication_successful": true,
+          "template_started": true,
+          "error_lines": 0
+        },
+        "vault-agent": {
+          "authentication_successful": true,
+          "template_started": true,
+          "error_lines": 0
+        }
+      }
+    },
+    {
+      "component": "backend",
+      "name": "backend-dd9f6c58b-82q7l",
+      "uid": "3c5a9404-7392-4552-b8e9-8817298a8015",
+      "phase": "Running",
+      "service_account": "backend-sa",
+      "automount_service_account_token": false,
+      "containers": [
+        {
+          "name": "app",
+          "ready": true,
+          "restart_count": 0,
+          "image": "docker.io/library/infrasec-app:bootstrap",
+          "image_id": "sha256:73e50c8e0ab69dc51091b96193f1cbe93c7611e0bfc7a712565e37efa0f0f804"
+        },
+        {
+          "name": "vault-agent",
+          "ready": true,
+          "restart_count": 0,
+          "image": "docker.io/hashicorp/vault:1.20.4",
+          "image_id": "docker.io/hashicorp/vault@sha256:268bb80aa9c6d13d65fcfa05c0c268caca068952240a8087291a6ce0b66e3a10"
+        }
+      ],
+      "init_exit_code": 0,
+      "security_contexts": {
+        "vault-agent-init": {
+          "allowPrivilegeEscalation": false,
+          "capabilities": {
+            "drop": [
+              "ALL"
+            ]
+          },
+          "readOnlyRootFilesystem": true,
+          "runAsGroup": 1000,
+          "runAsNonRoot": true,
+          "runAsUser": 1000,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "app": {
+          "allowPrivilegeEscalation": false,
+          "capabilities": {
+            "drop": [
+              "ALL"
+            ]
+          },
+          "readOnlyRootFilesystem": true,
+          "runAsGroup": 1000,
+          "runAsNonRoot": true,
+          "runAsUser": 1000,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "vault-agent": {
+          "allowPrivilegeEscalation": false,
+          "capabilities": {
+            "drop": [
+              "ALL"
+            ]
+          },
+          "readOnlyRootFilesystem": true,
+          "runAsGroup": 1000,
+          "runAsNonRoot": true,
+          "runAsUser": 1000,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        }
+      },
+      "app_has_no_jwt_mount": true,
+      "secret_file_checks": {
+        "file_path": "/vault/secrets/config.json",
+        "file_mode": "0o400",
+        "owner_uid": 1000,
+        "owner_gid": 1000,
+        "keys": [
+          "api_key"
+        ],
+        "all_values_nonempty": true,
+        "file_sha256": "2cbc7ed67999338b9b7ace96ae8529a5b776ed80e0da0e50eda44ed07b3076da",
+        "run_uid": 1000,
+        "default_kubernetes_jwt_absent": true,
+        "vault_jwt_absent": true,
+        "vault_token_absent": true,
+        "health_status": 200,
+        "unauthenticated_status": 401
+      },
+      "agent_log_checks": {
+        "vault-agent-init": {
+          "authentication_successful": true,
+          "template_started": true,
+          "error_lines": 0
+        },
+        "vault-agent": {
+          "authentication_successful": true,
+          "template_started": true,
+          "error_lines": 0
+        }
+      }
+    }
+  ],
+  "ca_objects": {
+    "configmap_keys": [
+      "ca.crt"
+    ],
+    "secret_keys": [
+      "ca.crt"
+    ],
+    "only_public_ca": true
+  },
+  "ok": true
+}

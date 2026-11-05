@@ -107,7 +107,13 @@ def main():
     parser.add_argument('--section', choices=('all', 'status', 'engines', 'auth', 'policies'), default='all')
     parser.add_argument('--evidence-file')
     args = parser.parse_args()
+    output_target = None
     try:
+        if args.evidence_file:
+            candidate = Path(args.evidence_file).expanduser().resolve()
+            require((ROOT / 'artifacts').resolve() in candidate.parents,
+                    'Сводку можно записать только в каталог artifacts проекта')
+            output_target = candidate
         require(args.admin_file and args.ca_file, 'Укажите пути к административному JSON и открытому CA')
         admin_path = outside(args.admin_file)
         details = admin_path.stat()
@@ -124,8 +130,8 @@ def main():
                 result[name] = action(client)
     except Exception as exc:
         result = {'ok': False, 'error': str(exc) if isinstance(exc, SafeError) else type(exc).__name__}
-    if args.evidence_file:
-        target = Path(args.evidence_file).expanduser()
+    if output_target is not None:
+        target = output_target
         target.parent.mkdir(parents=True, exist_ok=True)
         descriptor = os.open(target, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
         with os.fdopen(descriptor, 'w') as output:

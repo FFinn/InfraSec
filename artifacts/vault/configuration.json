@@ -1,0 +1,92 @@
+{
+  "ok": true,
+  "checked_at": "2026-11-05T13:26:16.728502+00:00",
+  "status": {
+    "initialized": true,
+    "sealed": false,
+    "version": "1.20.4",
+    "storage_type": "raft",
+    "key_shares": 3,
+    "unseal_threshold": 2,
+    "standby": false,
+    "leader_address": "https://infrasec-vault-0.infrasec-vault-internal.infrasec-vault.svc:8200",
+    "voters": 3,
+    "leaders": 1,
+    "addresses_expanded": true,
+    "peers": [
+      {
+        "node_id": "infrasec-vault-0",
+        "address": "infrasec-vault-0.infrasec-vault-internal.infrasec-vault.svc:8201",
+        "leader": true,
+        "voter": true
+      },
+      {
+        "node_id": "infrasec-vault-1",
+        "address": "infrasec-vault-1.infrasec-vault-internal.infrasec-vault.svc:8201",
+        "leader": false,
+        "voter": true
+      },
+      {
+        "node_id": "infrasec-vault-2",
+        "address": "infrasec-vault-2.infrasec-vault-internal.infrasec-vault.svc:8201",
+        "leader": false,
+        "voter": true
+      }
+    ],
+    "tls_verified": true
+  },
+  "engines": [
+    {
+      "path": "cubbyhole/",
+      "type": "cubbyhole",
+      "version": null
+    },
+    {
+      "path": "identity/",
+      "type": "identity",
+      "version": null
+    },
+    {
+      "path": "secret/",
+      "type": "kv",
+      "version": "2"
+    },
+    {
+      "path": "sys/",
+      "type": "system",
+      "version": null
+    }
+  ],
+  "auth": [
+    {
+      "path": "approle/",
+      "type": "approle"
+    },
+    {
+      "path": "kubernetes/",
+      "type": "kubernetes"
+    },
+    {
+      "path": "token/",
+      "type": "token"
+    }
+  ],
+  "policies": [
+    {
+      "name": "infrasec-frontend",
+      "policy": "path \"secret/data/infrasec/app/frontend\" {\n  capabilities = [\"read\"]\n}\n\npath \"auth/token/lookup-self\" {\n  capabilities = [\"read\"]\n}\n\npath \"auth/token/renew-self\" {\n  capabilities = [\"update\"]\n}\n\npath \"auth/token/revoke-self\" {\n  capabilities = [\"update\"]\n}\n"
+    },
+    {
+      "name": "infrasec-backend",
+      "policy": "path \"secret/data/infrasec/app/backend\" {\n  capabilities = [\"read\"]\n}\n\npath \"auth/token/lookup-self\" {\n  capabilities = [\"read\"]\n}\n\npath \"auth/token/renew-self\" {\n  capabilities = [\"update\"]\n}\n\npath \"auth/token/revoke-self\" {\n  capabilities = [\"update\"]\n}\n"
+    },
+    {
+      "name": "infrasec-ci",
+      "policy": "path \"secret/data/infrasec/ci/deploy\" {\n  capabilities = [\"read\"]\n}\n\npath \"auth/token/lookup-self\" {\n  capabilities = [\"read\"]\n}\n\npath \"auth/token/revoke-self\" {\n  capabilities = [\"update\"]\n}\n"
+    },
+    {
+      "name": "infrasec-ansible",
+      "policy": "path \"secret/data/infrasec/infrastructure/credentials\" {\n  capabilities = [\"read\"]\n}\n\npath \"auth/token/lookup-self\" {\n  capabilities = [\"read\"]\n}\n\npath \"auth/token/revoke-self\" {\n  capabilities = [\"update\"]\n}\n"
+    }
+  ]
+}

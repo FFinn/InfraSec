@@ -1,0 +1,37 @@
+{
+  "checked_at": "2026-11-05T12:41:25.116652+00:00",
+  "vault_storage": "raft",
+  "vault_replicas": 3,
+  "runs": [
+    {
+      "run": "first",
+      "exit_code": 0,
+      "secret_values_absent_in_log": true,
+      "recap": {
+        "ok": 13,
+        "changed": 1,
+        "unreachable": 0,
+        "failed": 0
+      },
+      "configuration_changed": true,
+      "file_mode_0600_and_hash_match_verified_by_playbook": true,
+      "temporary_vault_token_revoked": true
+    },
+    {
+      "run": "second",
+      "exit_code": 0,
+      "secret_values_absent_in_log": true,
+      "recap": {
+        "ok": 13,
+        "changed": 0,
+        "unreachable": 0,
+        "failed": 0
+      },
+      "configuration_changed": false,
+      "file_mode_0600_and_hash_match_verified_by_playbook": true,
+      "temporary_vault_token_revoked": true
+    }
+  ],
+  "ok": true,
+  "finished_at": "2026-11-05T12:42:24.143342+00:00"
+}

@@ -1,0 +1,124 @@
+{
+  "checked_at": "2026-11-05T12:21:04.602895+00:00",
+  "browser_loopback_cookie_policy": true,
+  "server_secure_flag_unchanged": true,
+  "checks": [
+    {
+      "user": "alice",
+      "ok": true,
+      "details": {
+        "login_completed": true,
+        "profile_status": 200,
+        "protected_api_status": 200,
+        "session_contains_no_tokens": true,
+        "responses_contain_no_secrets": true,
+        "logout_denies_access": true
+      }
+    },
+    {
+      "user": "bob",
+      "ok": true,
+      "details": {
+        "login_completed": true,
+        "profile_status": 200,
+        "protected_api_status": 200,
+        "session_contains_no_tokens": true,
+        "responses_contain_no_secrets": true,
+        "logout_denies_access": true
+      }
+    }
+  ],
+  "http_trace": [
+    {
+      "method": "GET",
+      "status": 302,
+      "path": "/login"
+    },
+    {
+      "method": "GET",
+      "status": 200,
+      "path": "/realms/infrasec/protocol/openid-connect/auth"
+    },
+    {
+      "method": "POST",
+      "status": 302,
+      "path": "/realms/infrasec/login-actions/authenticate"
+    },
+    {
+      "method": "GET",
+      "status": 303,
+      "path": "/auth/callback"
+    },
+    {
+      "method": "GET",
+      "status": 200,
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "status": 200,
+      "path": "/profile"
+    },
+    {
+      "method": "GET",
+      "status": 200,
+      "path": "/api/data"
+    },
+    {
+      "method": "POST",
+      "status": 303,
+      "path": "/logout"
+    },
+    {
+      "method": "GET",
+      "status": 401,
+      "path": "/api/data"
+    },
+    {
+      "method": "GET",
+      "status": 302,
+      "path": "/login"
+    },
+    {
+      "method": "GET",
+      "status": 200,
+      "path": "/realms/infrasec/protocol/openid-connect/auth"
+    },
+    {
+      "method": "POST",
+      "status": 302,
+      "path": "/realms/infrasec/login-actions/authenticate"
+    },
+    {
+      "method": "GET",
+      "status": 303,
+      "path": "/auth/callback"
+    },
+    {
+      "method": "GET",
+      "status": 200,
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "status": 200,
+      "path": "/profile"
+    },
+    {
+      "method": "GET",
+      "status": 200,
+      "path": "/api/data"
+    },
+    {
+      "method": "POST",
+      "status": 303,
+      "path": "/logout"
+    },
+    {
+      "method": "GET",
+      "status": 401,
+      "path": "/api/data"
+    }
+  ],
+  "ok": true
+}

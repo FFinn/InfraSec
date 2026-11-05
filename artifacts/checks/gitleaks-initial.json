@@ -1,0 +1,7 @@
+{
+  "gitleaks_version": "8.30.1",
+  "exit_code": 0,
+  "files_considered": 81,
+  "findings": 0,
+  "rules": []
+}

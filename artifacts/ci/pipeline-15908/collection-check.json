@@ -1,0 +1,50 @@
+{
+  "checked_at": "2026-11-05T13:14:37.059196+00:00",
+  "project_id": 1165,
+  "pipeline_id": 15908,
+  "all_jobs_succeeded": true,
+  "jobs_count": 6,
+  "known_sensitive_literals_checked": 44,
+  "secret_matches": 0,
+  "heuristic_credential_matches": 0,
+  "private_values_written": false,
+  "files_checked_before_write": 22,
+  "job_logs": [
+    {
+      "job_id": 65979,
+      "name": "unit_tests",
+      "trace_bytes": 17877,
+      "trace_sha256": "3fb1304a2d8f85b8288a1d49480bfe39852e14d50cf9873cb211367bd8f3e3ad"
+    },
+    {
+      "job_id": 65980,
+      "name": "gitleaks",
+      "trace_bytes": 4713,
+      "trace_sha256": "e421f6397be43e9e0269b68846908138393338bfc1b0171cc51926c9c7cb965a"
+    },
+    {
+      "job_id": 65981,
+      "name": "vault_secrets",
+      "trace_bytes": 7641,
+      "trace_sha256": "ad50333f166041dc194c776dc0215a45c3de0003afaf16a62c37123f2b803026"
+    },
+    {
+      "job_id": 65982,
+      "name": "build_image",
+      "trace_bytes": 23751,
+      "trace_sha256": "d3b034348e056c160bba6aebb30e79e3845ffd0749473e66c85378312149ca51"
+    },
+    {
+      "job_id": 65983,
+      "name": "deploy_application",
+      "trace_bytes": 8516,
+      "trace_sha256": "4ad8d35a47b93193d0945479abf102316b722673d43aba13d2ee6a6632d47ae5"
+    },
+    {
+      "job_id": 65984,
+      "name": "verify_pipeline",
+      "trace_bytes": 9756,
+      "trace_sha256": "bae315905bb06c8590d1616d42b786b6bd47a886c579c6d72f554920fb741cd4"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "ok": true,
+  "checked_at": "2026-11-05T12:35:01.910002+00:00",
+  "namespace": "infrasec-vault",
+  "release": "infrasec-vault",
+  "storage_type": "raft",
+  "tls_verified": true,
+  "shares": 3,
+  "threshold": 2,
+  "audit_file_enabled": true,
+  "active_count": 1,
+  "standby_count": 2,
+  "voters": 3,
+  "peers": [
+    {
+      "node_id": "infrasec-vault-0",
+      "address": "infrasec-vault-0.infrasec-vault-internal.infrasec-vault.svc:8201",
+      "leader": true,
+      "voter": true
+    },
+    {
+      "node_id": "infrasec-vault-1",
+      "address": "infrasec-vault-1.infrasec-vault-internal.infrasec-vault.svc:8201",
+      "leader": false,
+      "voter": true
+    },
+    {
+      "node_id": "infrasec-vault-2",
+      "address": "infrasec-vault-2.infrasec-vault-internal.infrasec-vault.svc:8201",
+      "leader": false,
+      "voter": true
+    }
+  ],
+  "pods": [
+    {
+      "name": "infrasec-vault-0",
+      "phase": "Running",
+      "ready": true,
+      "node": "fhmjsse5e304ls6j56m0"
+    },
+    {
+      "name": "infrasec-vault-1",
+      "phase": "Running",
+      "ready": true,
+      "node": "fhmjsse5e304ls6j56m0"
+    },
+    {
+      "name": "infrasec-vault-2",
+      "phase": "Running",
+      "ready": true,
+      "node": "fhmjsse5e304ls6j56m0"
+    }
+  ],
+  "health": [
+    {
+      "pod": "infrasec-vault-0",
+      "initialized": true,
+      "sealed": false,
+      "standby": false,
+      "version": "1.20.4"
+    },
+    {
+      "pod": "infrasec-vault-1",
+      "initialized": true,
+      "sealed": false,
+      "standby": true,
+      "version": "1.20.4"
+    },
+    {
+      "pod": "infrasec-vault-2",
+      "initialized": true,
+      "sealed": false,
+      "standby": true,
+      "version": "1.20.4"
+    }
+  ],
+  "active_service": "https://infrasec-vault-active.infrasec-vault.svc:8200",
+  "active_service_endpoints": [
+    "infrasec-vault-0"
+  ],
+  "physical_ha_limit": "Три экземпляра Raft размещены на одной учебной ВМ; отказ ВМ остановит весь кластер."
+}

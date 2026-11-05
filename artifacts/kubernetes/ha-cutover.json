@@ -1,0 +1,113 @@
+{
+  "checked_at": "2026-11-05T12:42:21.998782+00:00",
+  "namespace": "infrasec",
+  "namespace_label": "infrasec-vault-injection=enabled",
+  "old_injector_label_removed": true,
+  "vault_service": "https://infrasec-vault-active.infrasec-vault.svc:8200",
+  "agent_and_app_trust_new_ca_only": true,
+  "ca_sha256": "70d5984aa73d62053fbdd4b93689e43b810b6c66d52767d8464732e18690d943",
+  "pods": [
+    {
+      "component": "frontend",
+      "name": "frontend-5f5dc6cf48-qwnxf",
+      "uid": "220c2c12-ab71-4e6c-b19a-813c8481df3e",
+      "phase": "Running",
+      "service_account": "frontend-sa",
+      "containers": [
+        {
+          "name": "app",
+          "ready": true,
+          "restart_count": 0,
+          "image": "docker.io/library/infrasec-app:bootstrap"
+        },
+        {
+          "name": "vault-agent",
+          "ready": true,
+          "restart_count": 0,
+          "image": "docker.io/hashicorp/vault:1.20.4"
+        }
+      ],
+      "init_exit_code": 0,
+      "file_and_service_checks": {
+        "file_mode": "0o400",
+        "owner_uid": 1000,
+        "run_uid": 1000,
+        "keys": [
+          "backend_api_key",
+          "oidc_client_secret",
+          "session_secret"
+        ],
+        "all_values_nonempty": true,
+        "file_sha256": "eeb23c86433af284edd869037348ce6b90305377d61b1f9273eaecc66a02a06b",
+        "app_has_no_default_jwt": true,
+        "app_has_no_vault_jwt": true,
+        "health_status": 200,
+        "unauthenticated_status": 401,
+        "frontend_to_backend_status": 200,
+        "backend_authenticated": true,
+        "keycloak_discovery_status": 200,
+        "keycloak_tls_verified": true,
+        "keycloak_issuer_matches": true
+      },
+      "agent_log_checks": {
+        "vault-agent-init": {
+          "authentication_successful": true,
+          "error_lines": 0
+        },
+        "vault-agent": {
+          "authentication_successful": true,
+          "error_lines": 0
+        }
+      }
+    },
+    {
+      "component": "backend",
+      "name": "backend-76b9cfdbb-g7w72",
+      "uid": "f8109fe3-6d7b-4f9e-bdcd-a39dc28e211b",
+      "phase": "Running",
+      "service_account": "backend-sa",
+      "containers": [
+        {
+          "name": "app",
+          "ready": true,
+          "restart_count": 0,
+          "image": "docker.io/library/infrasec-app:bootstrap"
+        },
+        {
+          "name": "vault-agent",
+          "ready": true,
+          "restart_count": 0,
+          "image": "docker.io/hashicorp/vault:1.20.4"
+        }
+      ],
+      "init_exit_code": 0,
+      "file_and_service_checks": {
+        "file_mode": "0o400",
+        "owner_uid": 1000,
+        "run_uid": 1000,
+        "keys": [
+          "api_key"
+        ],
+        "all_values_nonempty": true,
+        "file_sha256": "b39972469f2372795d34e35020eda18391f056ee059a316ef715066c5b46ab0b",
+        "app_has_no_default_jwt": true,
+        "app_has_no_vault_jwt": true,
+        "health_status": 200,
+        "unauthenticated_status": 401
+      },
+      "agent_log_checks": {
+        "vault-agent-init": {
+          "authentication_successful": true,
+          "error_lines": 0
+        },
+        "vault-agent": {
+          "authentication_successful": true,
+          "error_lines": 0
+        }
+      }
+    }
+  ],
+  "keycloak_discovery_tls_verified": true,
+  "registry_pull_secret_exists": true,
+  "ok": true
+}

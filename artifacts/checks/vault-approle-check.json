@@ -1,0 +1,130 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "name": "ci: вход и срок токена",
+      "ok": true,
+      "detail": {
+        "http": 200,
+        "ttl": 300,
+        "explicit_max_ttl": 600
+      }
+    },
+    {
+      "name": "ci: чтение своего пути",
+      "ok": true,
+      "detail": {
+        "http": 200,
+        "value_matches": true
+      }
+    },
+    {
+      "name": "ci: запрет записи",
+      "ok": true,
+      "detail": {
+        "http": 403
+      }
+    },
+    {
+      "name": "ci: запрет чтения frontend",
+      "ok": true,
+      "detail": {
+        "http": 403
+      }
+    },
+    {
+      "name": "ci: запрет чтения backend",
+      "ok": true,
+      "detail": {
+        "http": 403
+      }
+    },
+    {
+      "name": "ci: запрет чтения ansible",
+      "ok": true,
+      "detail": {
+        "http": 403
+      }
+    },
+    {
+      "name": "ci: запрет чтения identity",
+      "ok": true,
+      "detail": {
+        "http": 403
+      }
+    },
+    {
+      "name": "ansible: вход и срок токена",
+      "ok": true,
+      "detail": {
+        "http": 200,
+        "ttl": 300,
+        "explicit_max_ttl": 600
+      }
+    },
+    {
+      "name": "ansible: чтение своего пути",
+      "ok": true,
+      "detail": {
+        "http": 200,
+        "value_matches": true
+      }
+    },
+    {
+      "name": "ansible: запрет записи",
+      "ok": true,
+      "detail": {
+        "http": 403
+      }
+    },
+    {
+      "name": "ansible: запрет чтения frontend",
+      "ok": true,
+      "detail": {
+        "http": 403
+      }
+    },
+    {
+      "name": "ansible: запрет чтения backend",
+      "ok": true,
+      "detail": {
+        "http": 403
+      }
+    },
+    {
+      "name": "ansible: запрет чтения ci",
+      "ok": true,
+      "detail": {
+        "http": 403
+      }
+    },
+    {
+      "name": "ansible: запрет чтения identity",
+      "ok": true,
+      "detail": {
+        "http": 403
+      }
+    },
+    {
+      "name": "SecretID другого AppRole не подходит",
+      "ok": true,
+      "detail": {
+        "http": 400
+      }
+    },
+    {
+      "name": "Отзыв проверочного токена 1",
+      "ok": true,
+      "detail": 204
+    },
+    {
+      "name": "Отзыв проверочного токена 2",
+      "ok": true,
+      "detail": 204
+    }
+  ],
+  "passed": 17,
+  "failed": 0,
+  "tls_verified": true,
+  "checked_at": "2026-11-05T12:39:50.234632+00:00"
+}

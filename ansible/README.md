@@ -14,7 +14,7 @@ python3 -m venv /absolute/path/outside-repository/ansible-env
 Перед запуском задайте пути, не значения секретов:
 
 ```bash
-export VAULT_ADDR=https://127.0.0.1:18200
+export VAULT_ADDR=https://127.0.0.1:18202
 export VAULT_CACERT=/absolute/path/outside-repository/vault-ca.crt
 export INFRASEC_ANSIBLE_APPROLE_FILE=/absolute/path/outside-repository/infrasec-private/ansible-approle.json
 /absolute/path/outside-repository/ansible-env/bin/ansible-playbook \

@@ -2,7 +2,7 @@
 """Настроить CI InfraSec через glab, не выводя секреты и одноразовые токены."""
 import argparse
 import base64
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import fcntl
 import json
 import os
@@ -19,7 +19,6 @@ EXPECTED_HOST = 'devsecops.gitlab.yandexcloud.net'
 EXPECTED_PROJECT = 's2417991/infrasec'
 ENVIRONMENT = 'infrasec'
 REGISTRY_TOKEN_NAME = 'infrasec-kubernetes-pull'
-REGISTRY_EXPIRY = '2026-11-12T00:00:00Z'
 OWN_VARIABLES = {'VAULT_ROLE_ID', 'VAULT_SECRET_ID', 'VAULT_ADDR', 'VAULT_CACERT',
                  'KUBE_TOKEN', 'KUBE_API_URL', 'KUBE_CA_CERT'}
 
@@ -266,7 +265,7 @@ def configure_runner(client, directory):
                 authentication_token_saved_outside_repository=True)
 
 
-def configure_registry_token(client, directory):
+def configure_registry_token(client, directory, requested_expiry=None):
     target = directory / 'registry.json'
     reused = target.exists()
     if reused:
@@ -274,14 +273,18 @@ def configure_registry_token(client, directory):
         validate_saved_ownership(saved, client, 'DeployToken')
         actual = client.api('GET', client.project_endpoint('/deploy_tokens/' + str(saved['id'])))
     else:
-        expires = datetime.fromisoformat(REGISTRY_EXPIRY.replace('Z', '+00:00'))
+        day = requested_expiry or (datetime.now(timezone.utc) + timedelta(days=7)).date().isoformat()
+        require(bool(re.fullmatch(r'\d{4}-\d{2}-\d{2}', day)),
+                '--registry-expires должен иметь формат YYYY-MM-DD')
+        expiry = day + 'T00:00:00Z'
+        expires = datetime.fromisoformat(expiry.replace('Z', '+00:00'))
         require(datetime.now(timezone.utc) < expires, 'Срок запрошенного DeployToken уже истёк')
         known = client.pages(client.project_endpoint('/deploy_tokens'))
         require(not any(item.get('name') == REGISTRY_TOKEN_NAME and
                         not item.get('revoked') and not item.get('expired') for item in known),
                 'DeployToken InfraSec уже существует, но закрытый файл отсутствует; повторное создание остановлено')
         actual = client.api('POST', client.project_endpoint('/deploy_tokens'), {
-            'name': REGISTRY_TOKEN_NAME, 'scopes': ['read_registry'], 'expires_at': REGISTRY_EXPIRY,
+            'name': REGISTRY_TOKEN_NAME, 'scopes': ['read_registry'], 'expires_at': expiry,
         })
         require(isinstance(actual, dict) and isinstance(actual.get('id'), int) and
                 isinstance(actual.get('token'), str) and actual['token'] and
@@ -297,8 +300,10 @@ def configure_registry_token(client, directory):
             actual.get('username') == saved.get('username') and
             actual.get('scopes') == ['read_registry'] and not actual.get('revoked') and not actual.get('expired'),
             'DeployToken не подтвердил требуемые права или уже недействителен')
-    require(str(actual.get('expires_at', '')).startswith('2026-11-12'),
-            'Срок DeployToken отличается от установленного для практики')
+    expected_day = requested_expiry or str(saved.get('expires_at', '')).split('T')[0]
+    require(bool(re.fullmatch(r'\d{4}-\d{2}-\d{2}', expected_day)) and
+            str(actual.get('expires_at', '')).split('T')[0] == expected_day,
+            'Срок DeployToken отличается от запрошенного или сохранённого')
     require(saved.get('registry') == client.host + ':5050', 'Сохранён неверный адрес реестра')
     return {'id': saved['id'], 'project_id': client.project, 'scopes': ['read_registry'],
             'expires_at': actual['expires_at'], 'reused_private_file': reused,
@@ -309,6 +314,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--private-dir', required=True)
     parser.add_argument('--project', type=int, default=1165)
+    parser.add_argument('--project-path', default=EXPECTED_PROJECT,
+                        help='Ожидаемый namespace/project; проверяется до любых изменений')
     parser.add_argument('--host', default=EXPECTED_HOST)
     parser.add_argument('--approle-file')
     parser.add_argument('--vault-ca-file')
@@ -316,6 +323,7 @@ def main():
     parser.add_argument('--kube-file', help='Закрытый JSON с token, ca_certificate и api_url')
     parser.add_argument('--create-runner', action='store_true')
     parser.add_argument('--create-registry-token', action='store_true')
+    parser.add_argument('--registry-expires', help='YYYY-MM-DD; для нового DeployToken по умолчанию семь дней')
     args = parser.parse_args()
     os.umask(0o077)
     summary = {'ok': False, 'project_id': args.project, 'variables': []}
@@ -323,6 +331,11 @@ def main():
     try:
         require(args.host == EXPECTED_HOST and args.project > 0,
                 'Разрешён только учебный GitLab и положительный идентификатор проекта')
+        require(bool(re.fullmatch(r'(?:[A-Za-z0-9_.-]+/)+[A-Za-z0-9_.-]+', args.project_path)),
+                '--project-path должен иметь вид namespace/project')
+        if args.registry_expires:
+            require(bool(re.fullmatch(r'\d{4}-\d{2}-\d{2}', args.registry_expires)),
+                    '--registry-expires должен иметь формат YYYY-MM-DD')
         directory = external_path(args.private_dir, 'Закрытая папка GitLab')
         directory.mkdir(mode=0o700, parents=True, exist_ok=True)
         require(not directory.stat().st_mode & 0o077, 'Закрытая папка должна иметь права 0700')
@@ -336,15 +349,15 @@ def main():
         client = GitLab(args.host, args.project)
         project = client.api('GET', client.project_endpoint())
         require(isinstance(project, dict) and project.get('id') == args.project and
-                project.get('path_with_namespace') == EXPECTED_PROJECT,
-                'Проект не совпадает с ожидаемым s2417991/infrasec; изменения остановлены')
+                project.get('path_with_namespace') == args.project_path,
+                'Проект не совпадает с ожидаемым --project-path; изменения остановлены')
         summary['project_verified'] = True
         plan = prepare_variable_plan(client, desired)
         summary['variables'] = apply_variables(client, plan)
         if args.create_runner:
             summary['runner'] = configure_runner(client, directory)
         if args.create_registry_token:
-            summary['registry_token'] = configure_registry_token(client, directory)
+            summary['registry_token'] = configure_registry_token(client, directory, args.registry_expires)
         summary['ok'] = True
         summary['checked_at'] = datetime.now(timezone.utc).isoformat()
     except Exception as exc:

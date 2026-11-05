@@ -22,7 +22,19 @@ buildctl-daemonless.sh build \
   --local context="$CI_PROJECT_DIR/app" \
   --local dockerfile="$CI_PROJECT_DIR/app" \
   --opt platform=linux/amd64 \
+  --metadata-file "$work/metadata.json" \
   --output "type=image,name=$image,push=true"
+digest="$(awk -F '"' '
+  /^[[:space:]]*"containerimage[.]digest"[[:space:]]*:/ {
+    count++; digest=$4
+  }
+  END { if (count != 1) exit 2; print digest }
+' "$work/metadata.json")"
+case "$digest" in sha256:*) ;; *) echo 'BuildKit не вернул SHA256 digest.' >&2; exit 2 ;; esac
+hash="${digest#sha256:}"
+test "${#hash}" -eq 64
+case "$hash" in *[!0-9a-f]*|'') echo 'Некорректный digest BuildKit.' >&2; exit 2 ;; esac
+deployment_image="$CI_REGISTRY_IMAGE/app@$digest"
 mkdir -p ci-artifacts
-printf '{"commit":"%s","pipeline_id":"%s","ok":true,"image":"%s","rootless":true}\n' \
-  "$CI_COMMIT_SHA" "$CI_PIPELINE_ID" "$image" > ci-artifacts/build.json
+printf '{"commit":"%s","pipeline_id":"%s","ok":true,"image":"%s","digest":"%s","deployment_image":"%s","rootless":true}\n' \
+  "$CI_COMMIT_SHA" "$CI_PIPELINE_ID" "$image" "$digest" "$deployment_image" > ci-artifacts/build.json

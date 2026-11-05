@@ -3,13 +3,13 @@
 import copy
 import os
 from pathlib import Path
-import re
 import sys
 import time
 import requests
 import yaml
 
 from common import SafeError, certificate, https_origin, metadata, read_report, required, save_report
+from images import validated_deployment_image
 from vault_client import deploy_marker
 
 NAMESPACE = 'infrasec'
@@ -41,13 +41,8 @@ class Kubernetes:
 
 
 def expected_image():
-    image = required('CI_REGISTRY_IMAGE') + '/app:' + metadata()['commit']
-    if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._:/-]+', image):
-        raise SafeError('Недопустимое имя образа')
     built = read_report('build')
-    if not built.get('ok') or built.get('image') != image:
-        raise SafeError('Нет подтверждения сборки образа этого коммита')
-    return image
+    return validated_deployment_image(built, required('CI_REGISTRY_IMAGE'), metadata()['commit'])
 
 
 def deployments(image, marker_hash):

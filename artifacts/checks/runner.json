@@ -1,0 +1,44 @@
+{
+  "checked_at": "2026-11-05T12:22:47.689606+00:00",
+  "ok": true,
+  "gitlab": {
+    "id": 71,
+    "description": "InfraSec",
+    "status": "online",
+    "online": true,
+    "paused": false,
+    "runner_type": "project_type",
+    "tag_list": [
+      "infrasec"
+    ],
+    "run_untagged": false,
+    "locked": true,
+    "access_level": "ref_protected",
+    "maximum_timeout": 1800,
+    "contacted_at": "2026-11-05T12:22:11.189Z"
+  },
+  "project_ids": [
+    1165
+  ],
+  "controller": {
+    "name": "infrasec-gitlab-runner",
+    "running": true,
+    "image": "gitlab/gitlab-runner:alpine-v19.3.1",
+    "compose_project": "infrasec-runner",
+    "docker_socket_mounted": true
+  },
+  "job_configuration": {
+    "concurrent": 1,
+    "privileged": false,
+    "volumes": [
+      "/cache"
+    ],
+    "docker_socket_mounted": false,
+    "memory": "2g",
+    "cpus": 2,
+    "network_per_build": true,
+    "docker_host_address": "192.168.65.254"
+  },
+  "private_config_mode": "0o600",
+  "authentication_token_in_artifact": false
+}
