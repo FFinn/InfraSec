@@ -1,0 +1,144 @@
+---
+- name: Настроить компонент приложения с секретом из Vault
+  hosts: infrasec
+  gather_facts: false
+  become: false
+  vars:
+    vault_addr: "{{ lookup('ansible.builtin.env', 'VAULT_ADDR') }}"
+    vault_ca_path: "{{ lookup('ansible.builtin.env', 'VAULT_CACERT') }}"
+    vault_approle_file: "{{ lookup('ansible.builtin.env', 'INFRASEC_ANSIBLE_APPROLE_FILE') }}"
+    deploy_directory: /home/ubuntu/devsecops/infrasec/config
+    deploy_filename: "{{ deploy_directory }}/deploy.conf"
+  pre_tasks:
+    - name: Проверить обязательные параметры
+      ansible.builtin.assert:
+        that:
+          - vault_addr is match('^https://[^/]+/?$')
+          - vault_ca_path | length > 0
+          - vault_approle_file | length > 0
+        quiet: true
+        fail_msg: Передайте HTTPS-адрес Vault, файл CA и закрытый файл AppRole через переменные окружения.
+
+    - name: Прочитать AppRole из закрытого файла на контроллере
+      ansible.builtin.set_fact:
+        vault_approle: "{{ lookup('ansible.builtin.file', vault_approle_file) | from_json }}"
+        cacheable: false
+      no_log: true
+
+    - name: Проверить наличие реквизитов AppRole
+      ansible.builtin.assert:
+        that:
+          - vault_approle.role_id | length > 0
+          - vault_approle.secret_id | length > 0
+        quiet: true
+      no_log: true
+
+  tasks:
+    - name: Получить секрет и применить конфигурацию
+      block:
+        - name: Войти в Vault по AppRole
+          ansible.builtin.uri:
+            url: "{{ vault_addr | regex_replace('/$', '') }}/v1/auth/approle/login"
+            method: POST
+            body_format: json
+            body:
+              role_id: "{{ vault_approle.role_id }}"
+              secret_id: "{{ vault_approle.secret_id }}"
+            status_code: 200
+            return_content: true
+            validate_certs: true
+            ca_path: "{{ vault_ca_path }}"
+            follow_redirects: none
+            use_proxy: false
+          register: vault_login
+          delegate_to: localhost
+          changed_when: false
+          no_log: true
+
+        - name: Прочитать учётные данные компонента из KV v2
+          ansible.builtin.uri:
+            url: "{{ vault_addr | regex_replace('/$', '') }}/v1/secret/data/infrasec/infrastructure/credentials"
+            method: GET
+            headers:
+              X-Vault-Token: "{{ vault_login.json.auth.client_token }}"
+            status_code: 200
+            return_content: true
+            validate_certs: true
+            ca_path: "{{ vault_ca_path }}"
+            follow_redirects: none
+            use_proxy: false
+          register: vault_secret
+          delegate_to: localhost
+          changed_when: false
+          no_log: true
+
+        - name: Подготовить содержимое конфигурации в памяти
+          ansible.builtin.set_fact:
+            deploy_content: "DEPLOY_PASSWORD={{ vault_secret.json.data.data.deploy_password }}\n"
+            cacheable: false
+          no_log: true
+
+        - name: Создать закрытый каталог конфигурации
+          ansible.builtin.file:
+            path: "{{ deploy_directory }}"
+            state: directory
+            mode: '0700'
+            follow: false
+
+        - name: Записать конфигурацию компонента
+          ansible.builtin.copy:
+            dest: "{{ deploy_filename }}"
+            content: "{{ deploy_content }}"
+            mode: '0600'
+            backup: false
+            follow: false
+          register: deployed_configuration
+          diff: false
+          no_log: true
+
+        - name: Проверить права и контрольную сумму конфигурации
+          ansible.builtin.stat:
+            path: "{{ deploy_filename }}"
+            checksum_algorithm: sha256
+            follow: false
+          register: deployed_stat
+          no_log: true
+
+        - name: Сверить созданный файл с полученным секретом
+          ansible.builtin.assert:
+            that:
+              - deployed_stat.stat.isreg
+              - deployed_stat.stat.mode == '0600'
+              - deployed_stat.stat.checksum == (deploy_content | hash('sha256'))
+            quiet: true
+          no_log: true
+
+        - name: Сообщить результат без значения секрета
+          ansible.builtin.debug:
+            msg: "Конфигурация проверена: права 0600, содержимое совпадает с Vault. Изменена: {{ deployed_configuration.changed | bool }}."
+
+      always:
+        - name: Отозвать временный токен Vault
+          ansible.builtin.uri:
+            url: "{{ vault_addr | regex_replace('/$', '') }}/v1/auth/token/revoke-self"
+            method: POST
+            headers:
+              X-Vault-Token: "{{ vault_login.json.auth.client_token }}"
+            status_code: 204
+            validate_certs: true
+            ca_path: "{{ vault_ca_path }}"
+            follow_redirects: none
+            use_proxy: false
+          delegate_to: localhost
+          when: vault_login is defined and vault_login.json is defined and vault_login.json.auth is defined
+          changed_when: false
+          no_log: true
+
+        - name: Удалить чувствительные факты из дальнейшего контекста
+          ansible.builtin.set_fact:
+            vault_approle: null
+            vault_login: null
+            vault_secret: null
+            deploy_content: null
+            cacheable: false
+          no_log: true

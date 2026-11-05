@@ -1,0 +1,6 @@
+all:
+  children:
+    infrasec:
+      hosts:
+        localhost:
+          ansible_connection: local

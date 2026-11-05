@@ -1,0 +1,50 @@
+{
+  "checked_at": "2026-11-05T13:36:35.370478+00:00",
+  "test_kind": "actual CLI entry points with forbidden subprocess/API access",
+  "fixtures_contain_no_real_credentials": true,
+  "checks": [
+    {
+      "script": "scripts/initialize_vault.py",
+      "exit_code": 1,
+      "output_guard_reported": true,
+      "protected_file_unchanged": true,
+      "private_directory_not_created": true,
+      "private_inputs_not_read": true,
+      "no_kubernetes_or_api_calls": true,
+      "ok": true
+    },
+    {
+      "script": "scripts/inspect_vault.py",
+      "exit_code": 1,
+      "output_guard_reported": true,
+      "protected_file_unchanged": true,
+      "private_directory_not_created": true,
+      "private_inputs_not_read": true,
+      "no_kubernetes_or_api_calls": true,
+      "ok": true
+    },
+    {
+      "script": "scripts/bootstrap_kubernetes.py",
+      "exit_code": 1,
+      "output_guard_reported": true,
+      "protected_file_unchanged": true,
+      "private_directory_not_created": true,
+      "private_inputs_not_read": true,
+      "no_kubernetes_or_api_calls": true,
+      "ok": true
+    },
+    {
+      "script": "scripts/finalize_bootstrap.py",
+      "exit_code": 1,
+      "output_guard_reported": true,
+      "protected_file_unchanged": true,
+      "private_directory_not_created": true,
+      "private_inputs_not_read": true,
+      "no_kubernetes_or_api_calls": true,
+      "ok": true
+    }
+  ],
+  "passed": 4,
+  "failed": 0,
+  "ok": true
+}

@@ -1,0 +1,6 @@
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+replace: olcAccess
+olcAccess: {0}to attrs=userPassword by self write by anonymous auth by * none
+olcAccess: {1}to dn.subtree="ou=users,dc=infrasec,dc=test" by dn.exact="cn=keycloak-reader,ou=services,dc=infrasec,dc=test" read by dn.exact="cn=admin,dc=infrasec,dc=test" manage by * none
+olcAccess: {2}to * by dn.exact="cn=admin,dc=infrasec,dc=test" manage by * none

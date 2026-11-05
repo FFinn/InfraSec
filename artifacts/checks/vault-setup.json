@@ -1,0 +1,72 @@
+{
+  "ok": true,
+  "tls_verified": true,
+  "kv_version": 2,
+  "secret_paths": [
+    "secret/data/infrasec/app/frontend",
+    "secret/data/infrasec/app/backend",
+    "secret/data/infrasec/infrastructure/credentials",
+    "secret/data/infrasec/ci/deploy",
+    "secret/data/infrasec/infrastructure/identity"
+  ],
+  "policies": [
+    "infrasec-frontend",
+    "infrasec-backend",
+    "infrasec-ci",
+    "infrasec-ansible"
+  ],
+  "kubernetes_roles": {
+    "infrasec-frontend": {
+      "bound_service_account_names": [
+        "frontend-sa"
+      ],
+      "bound_service_account_namespaces": [
+        "infrasec"
+      ],
+      "audience": "vault",
+      "token_policies": [
+        "infrasec-frontend"
+      ],
+      "token_ttl": 300,
+      "token_max_ttl": 900,
+      "token_explicit_max_ttl": 900,
+      "token_no_default_policy": true
+    },
+    "infrasec-backend": {
+      "bound_service_account_names": [
+        "backend-sa"
+      ],
+      "bound_service_account_namespaces": [
+        "infrasec"
+      ],
+      "audience": "vault",
+      "token_policies": [
+        "infrasec-backend"
+      ],
+      "token_ttl": 300,
+      "token_max_ttl": 900,
+      "token_explicit_max_ttl": 900,
+      "token_no_default_policy": true
+    }
+  },
+  "approles": {
+    "infrasec-ci": {
+      "token_ttl": 300,
+      "token_explicit_max_ttl": 600,
+      "secret_id_ttl": 7200,
+      "secret_id_num_uses": 20,
+      "no_default_policy": true,
+      "credentials_reused": false
+    },
+    "infrasec-ansible": {
+      "token_ttl": 300,
+      "token_explicit_max_ttl": 600,
+      "secret_id_ttl": 7200,
+      "secret_id_num_uses": 20,
+      "no_default_policy": true,
+      "credentials_reused": false
+    }
+  },
+  "private_credentials_written_outside_repository": true,
+  "checked_at": "2026-11-05T12:36:56.105578+00:00"
+}

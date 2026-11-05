@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "checked_at": "2026-11-05T13:30:43.582560+00:00",
+  "initial_root_revoked": true,
+  "inspector_policy": "infrasec-inspector",
+  "inspector_orphan": true,
+  "inspector_ttl_max_seconds": 3600,
+  "inspector_cannot_read_secrets": true,
+  "recovery_shares_preserved": true,
+  "secret_values_in_report": false
+}

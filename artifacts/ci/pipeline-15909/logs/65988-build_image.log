@@ -1,0 +1,219 @@
+2026-11-05T13:35:21.325409Z 00O [0KRunning with gitlab-runner 19.3.1 (a16f5092)[0;m
+2026-11-05T13:35:21.325422Z 00O [0K  on InfraSec Mac yQulHKIMk, system ID: r_K8dSHSx0C0Ah[0;m
+2026-11-05T13:35:21.325430Z 00O [0K  feature flags: FF_NETWORK_PER_BUILD:true, FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR:true[0;m
+2026-11-05T13:35:21.325467Z 00O section_start:1793885721:prepare_executor[0K
+2026-11-05T13:35:21.325470Z 00O+[0K[36;1mPreparing the "docker" executor[0;m[0;m
+2026-11-05T13:35:21.339303Z 00O [0KUsing Docker executor with image moby/buildkit:v0.34.2-rootless ...[0;m
+2026-11-05T13:35:21.909969Z 00O [0KUsing effective pull policy of [always] for container moby/buildkit:v0.34.2-rootless[0;m
+2026-11-05T13:35:21.912000Z 00O [0KPulling docker image moby/buildkit:v0.34.2-rootless ...[0;m
+2026-11-05T13:35:23.926144Z 00O [0KUsing docker image sha256:de0feb0ed833b758d8e9a3a42a8cc32f7eed089a121cbf358a2535259db77126 for moby/buildkit:v0.34.2-rootless with digest moby/buildkit@sha256:c8252268760e1baba80780d63d738ef9f260fb7c7c0973c78494cb9ddd99eda1 ...[0;m
+2026-11-05T13:35:23.926159Z 00O [0KNot using umask - FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR is set![0;m
+2026-11-05T13:35:23.926165Z 00O section_end:1793885723:prepare_executor[0K
+2026-11-05T13:35:23.926287Z 00O+section_start:1793885723:prepare_script[0K
+2026-11-05T13:35:23.926291Z 00O+[0K[36;1mPreparing environment[0;m[0;m
+2026-11-05T13:35:23.928842Z 00O [0KUsing effective pull policy of [always] for container sha256:d3ba89fb5beeda0672c1a8241762b1d3dcff4a84cb48adf69c5a16c8834d884d[0;m
+2026-11-05T13:35:24.167624Z 01O Running on runner-yqulhkimk-project-1165-concurrent-0 via 044c275c6d0a...
+2026-11-05T13:35:24.258290Z 00O section_end:1793885724:prepare_script[0K
+2026-11-05T13:35:24.258716Z 00O+section_start:1793885724:get_sources[0K
+2026-11-05T13:35:24.258724Z 00O+[0K[36;1mGetting source from Git repository[0;m[0;m
+2026-11-05T13:35:24.383024Z 01O [32;1mGitaly correlation ID: 01M6NYQMEJ50CBS7557QD72EMA[0;m
+2026-11-05T13:35:24.386629Z 01O [32;1mFetching changes...[0;m
+2026-11-05T13:35:24.387728Z 01O Reinitialized existing Git repository in /builds/s2417991/infrasec/.git/
+2026-11-05T13:35:24.389727Z 01O [32;1mCreated fresh repository.[0;m
+2026-11-05T13:35:24.717322Z 01O [32;1mChecking out 75a7963c as detached HEAD (ref is infrastructure)...[0;m
+2026-11-05T13:35:24.722044Z 01O Removing ci-artifacts/
+2026-11-05T13:35:24.750946Z 01O 
+2026-11-05T13:35:24.750954Z 01O [32;1mSkipping Git submodules setup[0;m
+2026-11-05T13:35:24.845418Z 00O section_end:1793885724:get_sources[0K
+2026-11-05T13:35:24.846110Z 00O+section_start:1793885724:step_script[0K
+2026-11-05T13:35:24.846117Z 00O+[0K[36;1mExecuting "step_script" stage of the job script[0;m[0;m
+2026-11-05T13:35:24.846129Z 00O [0KUsing effective pull policy of [always] for container moby/buildkit:v0.34.2-rootless[0;m
+2026-11-05T13:35:24.848223Z 00O [0KUsing docker image sha256:de0feb0ed833b758d8e9a3a42a8cc32f7eed089a121cbf358a2535259db77126 for moby/buildkit:v0.34.2-rootless with digest moby/buildkit@sha256:c8252268760e1baba80780d63d738ef9f260fb7c7c0973c78494cb9ddd99eda1 ...[0;m
+2026-11-05T13:35:25.359630Z 00O [0KChanging ownership of files at "/builds/s2417991/infrasec" to 1000:1000[0;m
+2026-11-05T13:35:25.605016Z 00O [0KChanging ownership of files at "/builds/s2417991/infrasec.tmp" to 1000:1000[0;m
+2026-11-05T13:35:25.936111Z 01O [32;1m$ set +x[0;m
+2026-11-05T13:35:25.936139Z 01O [32;1m$ test "${CI_DEBUG_TRACE:-false}" != "true"[0;m
+2026-11-05T13:35:25.936139Z 01O [32;1m$ sh ci/build.sh[0;m
+2026-11-05T13:35:26.261757Z 01E #1 [internal] load build definition from Dockerfile
+2026-11-05T13:35:26.261766Z 01E #1 transferring dockerfile: 789B done
+2026-11-05T13:35:26.261766Z 01E #1 DONE 0.0s
+2026-11-05T13:35:26.261766Z 01E 
+2026-11-05T13:35:26.261766Z 01E #2 [internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+2026-11-05T13:35:28.952680Z 01E #2 DONE 2.8s
+2026-11-05T13:35:29.147803Z 01E 
+2026-11-05T13:35:29.147814Z 01E #3 [internal] load .dockerignore
+2026-11-05T13:35:29.147815Z 01E #3 transferring context: 90B done
+2026-11-05T13:35:29.147815Z 01E #3 DONE 0.0s
+2026-11-05T13:35:29.147816Z 01E 
+2026-11-05T13:35:29.147816Z 01E #4 [internal] load build context
+2026-11-05T13:35:29.147817Z 01E #4 transferring context: 14.26kB done
+2026-11-05T13:35:29.147818Z 01E #4 DONE 0.0s
+2026-11-05T13:35:29.147818Z 01E 
+2026-11-05T13:35:29.147819Z 01E #5 [1/5] FROM docker.io/library/python:3.12-slim-bookworm@sha256:da54eb86849fe19be7584d8b3f291fcf0c53c196760ab3d70dc6382f681ef9c0
+2026-11-05T13:35:29.147820Z 01E #5 resolve docker.io/library/python:3.12-slim-bookworm@sha256:da54eb86849fe19be7584d8b3f291fcf0c53c196760ab3d70dc6382f681ef9c0 done
+2026-11-05T13:35:29.151789Z 01E #5 sha256:88d15687540999237909e04714b1393c610db9dc2e13d82acd6356fa9bf8f092 0B / 249B 0.2s
+2026-11-05T13:35:29.305220Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 0B / 13.68MB 0.2s
+2026-11-05T13:35:29.305230Z 01E #5 sha256:a47be7bff94f52aefb243d8b245b01c74976150bb88de60875c5eb7ac964f91e 0B / 3.34MB 0.2s
+2026-11-05T13:35:29.305231Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 0B / 28.25MB 0.2s
+2026-11-05T13:35:29.459381Z 01E #5 sha256:88d15687540999237909e04714b1393c610db9dc2e13d82acd6356fa9bf8f092 249B / 249B 0.3s done
+2026-11-05T13:35:30.212599Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 1.05MB / 13.68MB 1.2s
+2026-11-05T13:35:30.504428Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 2.10MB / 13.68MB 1.5s
+2026-11-05T13:35:31.106456Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 3.15MB / 13.68MB 2.1s
+2026-11-05T13:35:31.854467Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 4.19MB / 13.68MB 2.9s
+2026-11-05T13:35:32.753691Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 5.24MB / 13.68MB 3.8s
+2026-11-05T13:35:33.362514Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 6.29MB / 13.68MB 4.4s
+2026-11-05T13:35:34.110857Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 7.34MB / 13.68MB 5.1s
+2026-11-05T13:35:34.404944Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 8.39MB / 13.68MB 5.4s
+2026-11-05T13:35:34.404954Z 01E #5 sha256:a47be7bff94f52aefb243d8b245b01c74976150bb88de60875c5eb7ac964f91e 0B / 3.34MB 5.3s
+2026-11-05T13:35:34.404955Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 1.05MB / 28.25MB 5.3s
+2026-11-05T13:35:34.871592Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 9.44MB / 13.68MB 5.9s
+2026-11-05T13:35:35.614921Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 10.49MB / 13.68MB 6.6s
+2026-11-05T13:35:36.357536Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 11.53MB / 13.68MB 7.4s
+2026-11-05T13:35:38.008993Z 01E #5 sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 13.68MB / 13.68MB 8.9s done
+2026-11-05T13:35:38.754922Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 3.15MB / 28.25MB 9.6s
+2026-11-05T13:35:39.508043Z 01E #5 sha256:a47be7bff94f52aefb243d8b245b01c74976150bb88de60875c5eb7ac964f91e 1.05MB / 3.34MB 10.5s
+2026-11-05T13:35:41.306621Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 5.24MB / 28.25MB 12.2s
+2026-11-05T13:35:42.654770Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 7.34MB / 28.25MB 13.5s
+2026-11-05T13:35:42.954883Z 01E #5 sha256:a47be7bff94f52aefb243d8b245b01c74976150bb88de60875c5eb7ac964f91e 2.10MB / 3.34MB 14.0s
+2026-11-05T13:35:44.155381Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 9.44MB / 28.25MB 15.0s
+2026-11-05T13:35:45.063803Z 01E #5 sha256:a47be7bff94f52aefb243d8b245b01c74976150bb88de60875c5eb7ac964f91e 3.15MB / 3.34MB 16.1s
+2026-11-05T13:35:45.063813Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 11.53MB / 28.25MB 16.1s
+2026-11-05T13:35:45.363693Z 01E #5 sha256:a47be7bff94f52aefb243d8b245b01c74976150bb88de60875c5eb7ac964f91e 3.34MB / 3.34MB 16.2s done
+2026-11-05T13:35:46.131861Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 13.63MB / 28.25MB 17.1s
+2026-11-05T13:35:46.881291Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 15.73MB / 28.25MB 17.9s
+2026-11-05T13:35:48.067578Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 17.83MB / 28.25MB 19.1s
+2026-11-05T13:35:49.261635Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 19.92MB / 28.25MB 20.3s
+2026-11-05T13:35:50.167219Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 22.02MB / 28.25MB 21.2s
+2026-11-05T13:35:51.060571Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 24.12MB / 28.25MB 22.1s
+2026-11-05T13:35:51.810687Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 26.21MB / 28.25MB 22.8s
+2026-11-05T13:35:52.490333Z 01E #5 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 28.25MB / 28.25MB 23.3s done
+2026-11-05T13:35:52.490342Z 01E #5 extracting sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3
+2026-11-05T13:35:52.717493Z 01E #5 extracting sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 0.4s done
+2026-11-05T13:35:52.717500Z 01E #5 DONE 23.7s
+2026-11-05T13:35:52.867889Z 01E 
+2026-11-05T13:35:52.867897Z 01E #5 [1/5] FROM docker.io/library/python:3.12-slim-bookworm@sha256:da54eb86849fe19be7584d8b3f291fcf0c53c196760ab3d70dc6382f681ef9c0
+2026-11-05T13:35:52.867918Z 01E #5 extracting sha256:a47be7bff94f52aefb243d8b245b01c74976150bb88de60875c5eb7ac964f91e 0.2s done
+2026-11-05T13:35:52.867918Z 01E #5 DONE 23.9s
+2026-11-05T13:35:53.020459Z 01E 
+2026-11-05T13:35:53.020468Z 01E #5 [1/5] FROM docker.io/library/python:3.12-slim-bookworm@sha256:da54eb86849fe19be7584d8b3f291fcf0c53c196760ab3d70dc6382f681ef9c0
+2026-11-05T13:35:53.020469Z 01E #5 extracting sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7
+2026-11-05T13:35:53.111326Z 01E #5 extracting sha256:8691b22c22a3e005c632ab6bc07b085b98dae9cc02d1d84de175849f997439c7 0.2s done
+2026-11-05T13:35:53.111335Z 01E #5 DONE 24.1s
+2026-11-05T13:35:53.293747Z 01E 
+2026-11-05T13:35:53.293754Z 01E #5 [1/5] FROM docker.io/library/python:3.12-slim-bookworm@sha256:da54eb86849fe19be7584d8b3f291fcf0c53c196760ab3d70dc6382f681ef9c0
+2026-11-05T13:35:53.293755Z 01E #5 extracting sha256:88d15687540999237909e04714b1393c610db9dc2e13d82acd6356fa9bf8f092 0.0s done
+2026-11-05T13:35:53.293755Z 01E #5 DONE 24.2s
+2026-11-05T13:35:53.293756Z 01E 
+2026-11-05T13:35:53.293756Z 01E #6 [2/5] WORKDIR /app
+2026-11-05T13:35:53.293756Z 01E #6 DONE 0.0s
+2026-11-05T13:35:53.293756Z 01E 
+2026-11-05T13:35:53.293757Z 01E #7 [3/5] COPY requirements.txt /app/requirements.txt
+2026-11-05T13:35:53.293757Z 01E #7 DONE 0.0s
+2026-11-05T13:35:53.293757Z 01E 
+2026-11-05T13:35:53.293757Z 01E #8 [4/5] RUN python -m pip install --no-cache-dir -r /app/requirements.txt     && groupadd --gid 1000 app     && useradd --uid 1000 --gid 1000 --no-create-home --shell /usr/sbin/nologin app
+2026-11-05T13:35:55.464766Z 01E #8 2.324 Collecting fastapi==0.162.0 (from -r /app/requirements.txt (line 1))
+2026-11-05T13:35:56.013040Z 01E #8 2.873   Downloading fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+2026-11-05T13:35:56.291649Z 01E #8 3.150 Collecting uvicorn==0.54.0 (from -r /app/requirements.txt (line 2))
+2026-11-05T13:35:56.405837Z 01E #8 3.265   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+2026-11-05T13:35:56.579450Z 01E #8 3.438 Collecting Authlib==1.9.4 (from -r /app/requirements.txt (line 3))
+2026-11-05T13:35:56.698469Z 01E #8 3.558   Downloading authlib-1.9.4-py2.py3-none-any.whl.metadata (10 kB)
+2026-11-05T13:35:56.870820Z 01E #8 3.729 Collecting httpx==0.28.1 (from -r /app/requirements.txt (line 4))
+2026-11-05T13:35:57.007732Z 01E #8 3.866   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-11-05T13:35:57.146450Z 01E #8 4.006 Collecting itsdangerous==2.2.0 (from -r /app/requirements.txt (line 5))
+2026-11-05T13:35:57.263078Z 01E #8 4.123   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+2026-11-05T13:35:57.474431Z 01E #8 4.334 Collecting starlette>=0.46.0 (from fastapi==0.162.0->-r /app/requirements.txt (line 1))
+2026-11-05T13:35:57.595411Z 01E #8 4.454   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+2026-11-05T13:35:58.162462Z 01E #8 5.022 Collecting pydantic>=2.9.0 (from fastapi==0.162.0->-r /app/requirements.txt (line 1))
+2026-11-05T13:35:58.292966Z 01E #8 5.152   Downloading pydantic-2.14.3-py3-none-any.whl.metadata (141 kB)
+2026-11-05T13:35:58.615276Z 01E #8 5.475 Collecting typing-extensions>=4.8.0 (from fastapi==0.162.0->-r /app/requirements.txt (line 1))
+2026-11-05T13:35:58.728801Z 01E #8 5.588   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-11-05T13:35:58.854923Z 01E #8 5.714 Collecting typing-inspection>=0.4.2 (from fastapi==0.162.0->-r /app/requirements.txt (line 1))
+2026-11-05T13:35:58.978034Z 01E #8 5.837   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+2026-11-05T13:35:59.114368Z 01E #8 5.973 Collecting annotated-doc>=0.0.2 (from fastapi==0.162.0->-r /app/requirements.txt (line 1))
+2026-11-05T13:35:59.251752Z 01E #8 6.111   Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+2026-11-05T13:35:59.433371Z 01E #8 6.293 Collecting opentelemetry-api>=1.44.0 (from fastapi==0.162.0->-r /app/requirements.txt (line 1))
+2026-11-05T13:35:59.551886Z 01E #8 6.411   Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+2026-11-05T13:35:59.704060Z 01E #8 6.563 Collecting click>=7.0 (from uvicorn==0.54.0->-r /app/requirements.txt (line 2))
+2026-11-05T13:35:59.828900Z 01E #8 6.688   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+2026-11-05T13:35:59.956583Z 01E #8 6.816 Collecting h11>=0.8 (from uvicorn==0.54.0->-r /app/requirements.txt (line 2))
+2026-11-05T13:36:00.073804Z 01E #8 6.932   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-11-05T13:36:00.855600Z 01E #8 7.715 Collecting cryptography>=45.0.1 (from Authlib==1.9.4->-r /app/requirements.txt (line 3))
+2026-11-05T13:36:00.970070Z 01E #8 7.829   Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.4 kB)
+2026-11-05T13:36:01.116904Z 01E #8 7.976 Collecting joserfc>=1.6.8 (from Authlib==1.9.4->-r /app/requirements.txt (line 3))
+2026-11-05T13:36:01.241846Z 01E #8 8.100   Downloading joserfc-1.8.0-py3-none-any.whl.metadata (3.1 kB)
+2026-11-05T13:36:01.400897Z 01E #8 8.260 Collecting anyio (from httpx==0.28.1->-r /app/requirements.txt (line 4))
+2026-11-05T13:36:01.519456Z 01E #8 8.379   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+2026-11-05T13:36:01.661827Z 01E #8 8.521 Collecting certifi (from httpx==0.28.1->-r /app/requirements.txt (line 4))
+2026-11-05T13:36:01.793001Z 01E #8 8.652   Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+2026-11-05T13:36:01.943418Z 01E #8 8.803 Collecting httpcore==1.* (from httpx==0.28.1->-r /app/requirements.txt (line 4))
+2026-11-05T13:36:02.063548Z 01E #8 8.923   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-11-05T13:36:02.208929Z 01E #8 9.068 Collecting idna (from httpx==0.28.1->-r /app/requirements.txt (line 4))
+2026-11-05T13:36:02.330098Z 01E #8 9.190   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+2026-11-05T13:36:02.775218Z 01E #8 9.635 Collecting cffi>=2.0.0 (from cryptography>=45.0.1->Authlib==1.9.4->-r /app/requirements.txt (line 3))
+2026-11-05T13:36:02.890187Z 01E #8 9.750   Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+2026-11-05T13:36:03.029651Z 01E #8 9.889 Collecting annotated-types>=0.6.0 (from pydantic>=2.9.0->fastapi==0.162.0->-r /app/requirements.txt (line 1))
+2026-11-05T13:36:03.155913Z 01E #8 10.01   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+2026-11-05T13:36:05.055361Z 01E #8 11.91 Collecting pydantic-core==2.50.4 (from pydantic>=2.9.0->fastapi==0.162.0->-r /app/requirements.txt (line 1))
+2026-11-05T13:36:05.377786Z 01E #8 12.24   Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.6 kB)
+2026-11-05T13:36:05.546510Z 01E #8 12.41 Collecting pycparser (from cffi>=2.0.0->cryptography>=45.0.1->Authlib==1.9.4->-r /app/requirements.txt (line 3))
+2026-11-05T13:36:05.673088Z 01E #8 12.53   Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+2026-11-05T13:36:05.821846Z 01E #8 12.68 Downloading fastapi-0.162.0-py3-none-any.whl (148 kB)
+2026-11-05T13:36:05.980593Z 01E #8 12.84 Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+2026-11-05T13:36:06.131038Z 01E #8 12.99 Downloading authlib-1.9.4-py2.py3-none-any.whl (266 kB)
+2026-11-05T13:36:06.439242Z 01E #8 13.30 Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-11-05T13:36:06.598992Z 01E #8 13.46 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+2026-11-05T13:36:06.724237Z 01E #8 13.58 Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-11-05T13:36:06.876855Z 01E #8 13.74 Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+2026-11-05T13:36:07.017480Z 01E #8 13.88 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+2026-11-05T13:36:07.344673Z 01E #8 14.20 Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl (4.8 MB)
+2026-11-05T13:36:09.523316Z 01E #8 16.38    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 2.2 MB/s eta 0:00:00
+2026-11-05T13:36:09.651362Z 01E #8 16.51 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+2026-11-05T13:36:09.780352Z 01E #8 16.64 Downloading joserfc-1.8.0-py3-none-any.whl (73 kB)
+2026-11-05T13:36:09.931265Z 01E #8 16.79 Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+2026-11-05T13:36:10.085583Z 01E #8 16.94 Downloading pydantic-2.14.3-py3-none-any.whl (494 kB)
+2026-11-05T13:36:10.428886Z 01E #8 17.29 Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+2026-11-05T13:36:11.696827Z 01E #8 18.56    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 1.7 MB/s eta 0:00:00
+2026-11-05T13:36:11.823092Z 01E #8 18.68 Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+2026-11-05T13:36:11.973747Z 01E #8 18.83 Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+2026-11-05T13:36:12.145871Z 01E #8 19.01 Downloading idna-3.20-py3-none-any.whl (69 kB)
+2026-11-05T13:36:12.312932Z 01E #8 19.17 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-11-05T13:36:12.463649Z 01E #8 19.32 Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+2026-11-05T13:36:12.583823Z 01E #8 19.44 Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+2026-11-05T13:36:12.771417Z 01E #8 19.63 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+2026-11-05T13:36:12.889575Z 01E #8 19.75 Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+2026-11-05T13:36:13.132246Z 01E #8 19.99 Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+2026-11-05T13:36:13.262538Z 01E #8 20.12 Installing collected packages: typing-extensions, pycparser, itsdangerous, idna, h11, click, certifi, annotated-types, annotated-doc, uvicorn, typing-inspection, pydantic-core, opentelemetry-api, httpcore, cffi, anyio, starlette, pydantic, httpx, cryptography, joserfc, fastapi, Authlib
+2026-11-05T13:36:14.763951Z 01E #8 21.62 Successfully installed Authlib-1.9.4 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.16.0 certifi-2026.10.23 cffi-2.1.1 click-8.5.0 cryptography-50.0.2 fastapi-0.162.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.20 itsdangerous-2.2.0 joserfc-1.8.0 opentelemetry-api-1.45.2 pycparser-3.12 pydantic-2.14.3 pydantic-core-2.50.4 starlette-1.10.0 typing-extensions-4.16.0 typing-inspection-0.4.5 uvicorn-0.54.0
+2026-11-05T13:36:14.916518Z 01E #8 21.62 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+2026-11-05T13:36:15.020074Z 01E #8 DONE 21.9s
+2026-11-05T13:36:15.194468Z 01E 
+2026-11-05T13:36:15.194478Z 01E #9 [5/5] COPY infrasec /app/infrasec
+2026-11-05T13:36:15.194478Z 01E #9 DONE 0.0s
+2026-11-05T13:36:15.194478Z 01E 
+2026-11-05T13:36:15.194479Z 01E #10 exporting to image
+2026-11-05T13:36:15.194479Z 01E #10 exporting layers
+2026-11-05T13:36:16.036647Z 01E #10 exporting layers 1.0s done
+2026-11-05T13:36:16.199196Z 01E #10 exporting manifest sha256:b0ed311bea70b2889b096eda49b342ccc0082e80987a56d5cc9d8af0ada921a4 done
+2026-11-05T13:36:16.199208Z 01E #10 exporting config sha256:2680ea0541d5bac1ece992db8195845223bc197f9f7e22c79c2acea3262d1d64 done
+2026-11-05T13:36:16.199209Z 01E #10 pushing layers
+2026-11-05T13:36:16.370151Z 01E #10 ...
+2026-11-05T13:36:16.370162Z 01E 
+2026-11-05T13:36:16.370163Z 01E #11 [auth] s2417991/infrasec/app:pull,push token for devsecops.gitlab.yandexcloud.net:5050
+2026-11-05T13:36:16.370164Z 01E #11 DONE 0.0s
+2026-11-05T13:36:16.517542Z 01E 
+2026-11-05T13:36:16.517551Z 01E #10 exporting to image
+2026-11-05T13:36:20.818719Z 01E #10 pushing layers 4.8s done
+2026-11-05T13:36:20.818731Z 01E #10 pushing manifest for devsecops.gitlab.yandexcloud.net:5050/s2417991/infrasec/app:75a7963cbe8228dc47de127c43eabca2ed9f2a52@sha256:b0ed311bea70b2889b096eda49b342ccc0082e80987a56d5cc9d8af0ada921a4
+2026-11-05T13:36:20.980194Z 01E #10 pushing manifest for devsecops.gitlab.yandexcloud.net:5050/s2417991/infrasec/app:75a7963cbe8228dc47de127c43eabca2ed9f2a52@sha256:b0ed311bea70b2889b096eda49b342ccc0082e80987a56d5cc9d8af0ada921a4 0.2s done
+2026-11-05T13:36:20.980246Z 01E #10 DONE 5.9s
+2026-11-05T13:36:21.152844Z 00O section_end:1793885781:step_script[0K
+2026-11-05T13:36:21.153231Z 00O+section_start:1793885781:upload_artifacts_on_success[0K
+2026-11-05T13:36:21.153235Z 00O+[0K[36;1mUploading artifacts for successful job[0;m[0;m
+2026-11-05T13:36:21.344763Z 01O [32;1mUploading artifacts...[0;m
+2026-11-05T13:36:21.384066Z 01E ci-artifacts/build.json: found 1 matching artifact files and directories[0;m 
+2026-11-05T13:36:21.787680Z 01E Uploading artifacts as "archive" to coordinator... 201 Created[0;m  correlation_id[0;m=01M6NYSFNX67XFBM61KSJPE1GR id[0;m=65988 status[0;m=201 token[0;m=68_mKBJQE
+2026-11-05T13:36:21.883521Z 00O section_end:1793885781:upload_artifacts_on_success[0K
+2026-11-05T13:36:21.883761Z 00O+section_start:1793885781:cleanup_file_variables[0K
+2026-11-05T13:36:21.883767Z 00O+[0K[36;1mCleaning up project directory and file based variables[0;m[0;m
+2026-11-05T13:36:22.107903Z 00O section_end:1793885782:cleanup_file_variables[0K
+2026-11-05T13:36:22.485277Z 00O [32;1mJob succeeded[0;m

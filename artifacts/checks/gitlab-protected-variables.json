@@ -1,0 +1,78 @@
+{
+  "ok": true,
+  "project_id": 1165,
+  "variables": [
+    {
+      "key": "VAULT_ROLE_ID",
+      "protected": true,
+      "raw": true,
+      "environment_scope": "infrasec",
+      "variable_type": "env_var",
+      "masked": true,
+      "hidden": true,
+      "action": "created"
+    },
+    {
+      "key": "VAULT_SECRET_ID",
+      "protected": true,
+      "raw": true,
+      "environment_scope": "infrasec",
+      "variable_type": "env_var",
+      "masked": true,
+      "hidden": true,
+      "action": "created"
+    },
+    {
+      "key": "VAULT_ADDR",
+      "protected": true,
+      "raw": true,
+      "environment_scope": "infrasec",
+      "variable_type": "env_var",
+      "masked": false,
+      "hidden": false,
+      "action": "created"
+    },
+    {
+      "key": "VAULT_CACERT",
+      "protected": true,
+      "raw": true,
+      "environment_scope": "infrasec",
+      "variable_type": "file",
+      "masked": false,
+      "hidden": false,
+      "action": "created"
+    },
+    {
+      "key": "KUBE_TOKEN",
+      "protected": true,
+      "raw": true,
+      "environment_scope": "infrasec",
+      "variable_type": "env_var",
+      "masked": true,
+      "hidden": true,
+      "action": "created"
+    },
+    {
+      "key": "KUBE_API_URL",
+      "protected": true,
+      "raw": true,
+      "environment_scope": "infrasec",
+      "variable_type": "env_var",
+      "masked": false,
+      "hidden": false,
+      "action": "created"
+    },
+    {
+      "key": "KUBE_CA_CERT",
+      "protected": true,
+      "raw": true,
+      "environment_scope": "infrasec",
+      "variable_type": "file",
+      "masked": false,
+      "hidden": false,
+      "action": "created"
+    }
+  ],
+  "project_verified": true,
+  "checked_at": "2026-11-05T12:37:18.525689+00:00"
+}

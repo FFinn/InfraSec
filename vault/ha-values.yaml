@@ -1,0 +1,107 @@
+global:
+  enabled: true
+  tlsDisable: false
+
+injector:
+  enabled: true
+  replicas: 1
+  affinity: ''
+  strategy:
+    type: Recreate
+    rollingUpdate: null
+  agentImage:
+    repository: hashicorp/vault
+    tag: '1.20.4'
+  webhook:
+    failurePolicy: Fail
+    namespaceSelector:
+      matchLabels:
+        infrasec-vault-injection: enabled
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 250m
+      memory: 128Mi
+
+server:
+  enabled: true
+  image:
+    repository: hashicorp/vault
+    tag: '1.20.4'
+  dev:
+    enabled: false
+  standalone:
+    enabled: false
+  ha:
+    enabled: true
+    replicas: 3
+    apiAddr: 'https://$(VAULT_K8S_POD_NAME).infrasec-vault-internal.infrasec-vault.svc:8200'
+    clusterAddr: 'https://$(HOSTNAME).infrasec-vault-internal.infrasec-vault.svc:8201'
+    raft:
+      enabled: true
+      setNodeId: true
+      config: |
+        ui = true
+        disable_mlock = true
+        listener "tcp" {
+          address = "[::]:8200"
+          cluster_address = "[::]:8201"
+          tls_cert_file = "/vault/userconfig/infrasec-vault-tls/tls.crt"
+          tls_key_file = "/vault/userconfig/infrasec-vault-tls/tls.key"
+        }
+        storage "raft" {
+          path = "/vault/data"
+        }
+        service_registration "kubernetes" {}
+  # Учебная ВМ одна: экземпляры Raft размещаются на одном физическом узле.
+  affinity: ''
+  dataStorage:
+    enabled: true
+    size: 1Gi
+    storageClass: local-path
+  auditStorage:
+    enabled: true
+    size: 1Gi
+    storageClass: local-path
+  authDelegator:
+    enabled: true
+  serviceAccount:
+    create: true
+    name: infrasec-vault
+    serviceDiscovery:
+      enabled: true
+  service:
+    type: ClusterIP
+    active:
+      enabled: true
+    standby:
+      enabled: true
+  extraEnvironmentVars:
+    VAULT_CACERT: /vault/userconfig/infrasec-vault-tls/ca.crt
+  volumes:
+    - name: infrasec-vault-tls
+      secret:
+        secretName: infrasec-vault-tls
+  volumeMounts:
+    - name: infrasec-vault-tls
+      mountPath: /vault/userconfig/infrasec-vault-tls
+      readOnly: true
+  readinessProbe:
+    enabled: true
+    path: /v1/sys/health?standbyok=true
+  livenessProbe:
+    enabled: true
+    path: /v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: '1'
+      memory: 512Mi
+
+ui:
+  enabled: true
+  serviceType: ClusterIP

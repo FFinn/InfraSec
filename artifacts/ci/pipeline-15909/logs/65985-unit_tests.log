@@ -1,0 +1,153 @@
+2026-11-05T13:34:00.878102Z 00O [0KRunning with gitlab-runner 19.3.1 (a16f5092)[0;m
+2026-11-05T13:34:00.878163Z 00O [0K  on InfraSec Mac yQulHKIMk, system ID: r_K8dSHSx0C0Ah[0;m
+2026-11-05T13:34:00.878179Z 00O [0K  feature flags: FF_NETWORK_PER_BUILD:true, FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR:true[0;m
+2026-11-05T13:34:00.878273Z 00O section_start:1793885640:prepare_executor[0K
+2026-11-05T13:34:00.878278Z 00O+[0K[36;1mPreparing the "docker" executor[0;m[0;m
+2026-11-05T13:34:00.903223Z 00O [0KUsing Docker executor with image python:3.12-slim-bookworm ...[0;m
+2026-11-05T13:34:01.447932Z 00O [0KUsing effective pull policy of [always] for container python:3.12-slim-bookworm[0;m
+2026-11-05T13:34:01.450164Z 00O [0KPulling docker image python:3.12-slim-bookworm ...[0;m
+2026-11-05T13:34:03.820461Z 00O [0KUsing docker image sha256:4703adf8fdd93b1441114e4f87ce2c62f7373fc5f88bda6a546c551625bcc71c for python:3.12-slim-bookworm with digest python@sha256:da54eb86849fe19be7584d8b3f291fcf0c53c196760ab3d70dc6382f681ef9c0 ...[0;m
+2026-11-05T13:34:03.820475Z 00O [0KNot using umask - FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR is set![0;m
+2026-11-05T13:34:03.820480Z 00O section_end:1793885643:prepare_executor[0K
+2026-11-05T13:34:03.820630Z 00O+section_start:1793885643:prepare_script[0K
+2026-11-05T13:34:03.820635Z 00O+[0K[36;1mPreparing environment[0;m[0;m
+2026-11-05T13:34:03.823342Z 00O [0KUsing effective pull policy of [always] for container sha256:d3ba89fb5beeda0672c1a8241762b1d3dcff4a84cb48adf69c5a16c8834d884d[0;m
+2026-11-05T13:34:04.085256Z 01O Running on runner-yqulhkimk-project-1165-concurrent-0 via 044c275c6d0a...
+2026-11-05T13:34:04.176957Z 00O section_end:1793885644:prepare_script[0K
+2026-11-05T13:34:04.177296Z 00O+section_start:1793885644:get_sources[0K
+2026-11-05T13:34:04.177299Z 00O+[0K[36;1mGetting source from Git repository[0;m[0;m
+2026-11-05T13:34:04.356983Z 01O [32;1mGitaly correlation ID: 01M6NYN5NKRXNGTT667QYJJ0VY[0;m
+2026-11-05T13:34:04.359556Z 01O [32;1mFetching changes...[0;m
+2026-11-05T13:34:04.361036Z 01O Reinitialized existing Git repository in /builds/s2417991/infrasec/.git/
+2026-11-05T13:34:04.362523Z 01O [32;1mCreated fresh repository.[0;m
+2026-11-05T13:34:06.547039Z 01O [32;1mChecking out 75a7963c as detached HEAD (ref is infrastructure)...[0;m
+2026-11-05T13:34:06.558041Z 01O Removing ci-artifacts/
+2026-11-05T13:34:06.582177Z 01O 
+2026-11-05T13:34:06.582185Z 01O [32;1mSkipping Git submodules setup[0;m
+2026-11-05T13:34:06.700276Z 00O section_end:1793885646:get_sources[0K
+2026-11-05T13:34:06.700789Z 00O+section_start:1793885646:step_script[0K
+2026-11-05T13:34:06.700794Z 00O+[0K[36;1mExecuting "step_script" stage of the job script[0;m[0;m
+2026-11-05T13:34:06.700804Z 00O [0KUsing effective pull policy of [always] for container python:3.12-slim-bookworm[0;m
+2026-11-05T13:34:06.703123Z 00O [0KUsing docker image sha256:4703adf8fdd93b1441114e4f87ce2c62f7373fc5f88bda6a546c551625bcc71c for python:3.12-slim-bookworm with digest python@sha256:da54eb86849fe19be7584d8b3f291fcf0c53c196760ab3d70dc6382f681ef9c0 ...[0;m
+2026-11-05T13:34:06.954495Z 01O [32;1m$ set +x[0;m
+2026-11-05T13:34:06.954516Z 01O [32;1m$ test "${CI_DEBUG_TRACE:-false}" != "true"[0;m
+2026-11-05T13:34:06.954516Z 01O [32;1m$ python -m pip install --no-cache-dir -r app/requirements-dev.txt[0;m
+2026-11-05T13:34:09.428229Z 01O Collecting fastapi==0.162.0 (from -r /builds/s2417991/infrasec/app/requirements.txt (line 1))
+2026-11-05T13:34:09.981739Z 01O   Downloading fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+2026-11-05T13:34:10.224406Z 01O Collecting uvicorn==0.54.0 (from -r /builds/s2417991/infrasec/app/requirements.txt (line 2))
+2026-11-05T13:34:10.340278Z 01O   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+2026-11-05T13:34:10.514601Z 01O Collecting Authlib==1.9.4 (from -r /builds/s2417991/infrasec/app/requirements.txt (line 3))
+2026-11-05T13:34:10.633438Z 01O   Downloading authlib-1.9.4-py2.py3-none-any.whl.metadata (10 kB)
+2026-11-05T13:34:10.806246Z 01O Collecting httpx==0.28.1 (from -r /builds/s2417991/infrasec/app/requirements.txt (line 4))
+2026-11-05T13:34:10.926267Z 01O   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-11-05T13:34:11.080403Z 01O Collecting itsdangerous==2.2.0 (from -r /builds/s2417991/infrasec/app/requirements.txt (line 5))
+2026-11-05T13:34:11.205256Z 01O   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+2026-11-05T13:34:11.415696Z 01O Collecting pytest==9.2.0 (from -r app/requirements-dev.txt (line 2))
+2026-11-05T13:34:11.540841Z 01O   Downloading pytest-9.2.0-py3-none-any.whl.metadata (7.9 kB)
+2026-11-05T13:34:11.754641Z 01O Collecting starlette>=0.46.0 (from fastapi==0.162.0->-r /builds/s2417991/infrasec/app/requirements.txt (line 1))
+2026-11-05T13:34:11.877494Z 01O   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+2026-11-05T13:34:12.403172Z 01O Collecting pydantic>=2.9.0 (from fastapi==0.162.0->-r /builds/s2417991/infrasec/app/requirements.txt (line 1))
+2026-11-05T13:34:12.519547Z 01O   Downloading pydantic-2.14.3-py3-none-any.whl.metadata (141 kB)
+2026-11-05T13:34:12.842366Z 01O Collecting typing-extensions>=4.8.0 (from fastapi==0.162.0->-r /builds/s2417991/infrasec/app/requirements.txt (line 1))
+2026-11-05T13:34:12.955416Z 01O   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-11-05T13:34:13.082429Z 01O Collecting typing-inspection>=0.4.2 (from fastapi==0.162.0->-r /builds/s2417991/infrasec/app/requirements.txt (line 1))
+2026-11-05T13:34:13.207286Z 01O   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+2026-11-05T13:34:13.348008Z 01O Collecting annotated-doc>=0.0.2 (from fastapi==0.162.0->-r /builds/s2417991/infrasec/app/requirements.txt (line 1))
+2026-11-05T13:34:13.484070Z 01O   Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+2026-11-05T13:34:13.647274Z 01O Collecting opentelemetry-api>=1.44.0 (from fastapi==0.162.0->-r /builds/s2417991/infrasec/app/requirements.txt (line 1))
+2026-11-05T13:34:13.764924Z 01O   Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+2026-11-05T13:34:13.918929Z 01O Collecting click>=7.0 (from uvicorn==0.54.0->-r /builds/s2417991/infrasec/app/requirements.txt (line 2))
+2026-11-05T13:34:14.037368Z 01O   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+2026-11-05T13:34:14.167482Z 01O Collecting h11>=0.8 (from uvicorn==0.54.0->-r /builds/s2417991/infrasec/app/requirements.txt (line 2))
+2026-11-05T13:34:14.287741Z 01O   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-11-05T13:34:15.022186Z 01O Collecting cryptography>=45.0.1 (from Authlib==1.9.4->-r /builds/s2417991/infrasec/app/requirements.txt (line 3))
+2026-11-05T13:34:15.144447Z 01O   Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_aarch64.whl.metadata (4.4 kB)
+2026-11-05T13:34:15.293371Z 01O Collecting joserfc>=1.6.8 (from Authlib==1.9.4->-r /builds/s2417991/infrasec/app/requirements.txt (line 3))
+2026-11-05T13:34:15.411462Z 01O   Downloading joserfc-1.8.0-py3-none-any.whl.metadata (3.1 kB)
+2026-11-05T13:34:15.554878Z 01O Collecting anyio (from httpx==0.28.1->-r /builds/s2417991/infrasec/app/requirements.txt (line 4))
+2026-11-05T13:34:15.689518Z 01O   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+2026-11-05T13:34:15.839902Z 01O Collecting certifi (from httpx==0.28.1->-r /builds/s2417991/infrasec/app/requirements.txt (line 4))
+2026-11-05T13:34:15.970734Z 01O   Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+2026-11-05T13:34:16.115576Z 01O Collecting httpcore==1.* (from httpx==0.28.1->-r /builds/s2417991/infrasec/app/requirements.txt (line 4))
+2026-11-05T13:34:16.242241Z 01O   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-11-05T13:34:16.378254Z 01O Collecting idna (from httpx==0.28.1->-r /builds/s2417991/infrasec/app/requirements.txt (line 4))
+2026-11-05T13:34:16.500524Z 01O   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+2026-11-05T13:34:16.629138Z 01O Collecting iniconfig>=2 (from pytest==9.2.0->-r app/requirements-dev.txt (line 2))
+2026-11-05T13:34:16.748389Z 01O   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+2026-11-05T13:34:16.885915Z 01O Collecting packaging>=24 (from pytest==9.2.0->-r app/requirements-dev.txt (line 2))
+2026-11-05T13:34:17.002036Z 01O   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+2026-11-05T13:34:17.135282Z 01O Collecting pluggy<2,>=1.6 (from pytest==9.2.0->-r app/requirements-dev.txt (line 2))
+2026-11-05T13:34:17.254846Z 01O   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+2026-11-05T13:34:17.399645Z 01O Collecting pygments>=2.15 (from pytest==9.2.0->-r app/requirements-dev.txt (line 2))
+2026-11-05T13:34:17.514962Z 01O   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+2026-11-05T13:34:17.924128Z 01O Collecting cffi>=2.0.0 (from cryptography>=45.0.1->Authlib==1.9.4->-r /builds/s2417991/infrasec/app/requirements.txt (line 3))
+2026-11-05T13:34:18.044134Z 01O   Downloading cffi-2.1.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl.metadata (2.5 kB)
+2026-11-05T13:34:18.171133Z 01O Collecting annotated-types>=0.6.0 (from pydantic>=2.9.0->fastapi==0.162.0->-r /builds/s2417991/infrasec/app/requirements.txt (line 1))
+2026-11-05T13:34:18.292139Z 01O   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+2026-11-05T13:34:20.559477Z 01O Collecting pydantic-core==2.50.4 (from pydantic>=2.9.0->fastapi==0.162.0->-r /builds/s2417991/infrasec/app/requirements.txt (line 1))
+2026-11-05T13:34:20.681928Z 01O   Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl.metadata (6.6 kB)
+2026-11-05T13:34:20.816559Z 01O Collecting pycparser (from cffi>=2.0.0->cryptography>=45.0.1->Authlib==1.9.4->-r /builds/s2417991/infrasec/app/requirements.txt (line 3))
+2026-11-05T13:34:20.926888Z 01O   Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+2026-11-05T13:34:21.049112Z 01O Downloading fastapi-0.162.0-py3-none-any.whl (148 kB)
+2026-11-05T13:34:21.232819Z 01O Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+2026-11-05T13:34:21.373975Z 01O Downloading authlib-1.9.4-py2.py3-none-any.whl (266 kB)
+2026-11-05T13:34:21.568058Z 01O Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-11-05T13:34:21.709980Z 01O Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+2026-11-05T13:34:21.854058Z 01O Downloading pytest-9.2.0-py3-none-any.whl (411 kB)
+2026-11-05T13:34:22.067810Z 01O Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-11-05T13:34:22.201457Z 01O Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+2026-11-05T13:34:22.324286Z 01O Downloading click-8.5.0-py3-none-any.whl (125 kB)
+2026-11-05T13:34:22.466314Z 01O Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_aarch64.whl (4.7 MB)
+2026-11-05T13:34:25.432719Z 01O    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 1.6 MB/s eta 0:00:00
+2026-11-05T13:34:25.552992Z 01O Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+2026-11-05T13:34:25.694628Z 01O Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+2026-11-05T13:34:25.815480Z 01O Downloading joserfc-1.8.0-py3-none-any.whl (73 kB)
+2026-11-05T13:34:25.975198Z 01O Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+2026-11-05T13:34:26.149849Z 01O Downloading packaging-26.3-py3-none-any.whl (129 kB)
+2026-11-05T13:34:26.329724Z 01O Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+2026-11-05T13:34:26.474102Z 01O Downloading pydantic-2.14.3-py3-none-any.whl (494 kB)
+2026-11-05T13:34:26.957703Z 01O Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl (2.1 MB)
+2026-11-05T13:34:28.880962Z 01O    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 1.1 MB/s eta 0:00:00
+2026-11-05T13:34:29.012464Z 01O Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+2026-11-05T13:34:30.049208Z 01O    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 1.2 MB/s eta 0:00:00
+2026-11-05T13:34:30.161494Z 01O Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+2026-11-05T13:34:30.355660Z 01O Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+2026-11-05T13:34:30.556279Z 01O Downloading idna-3.20-py3-none-any.whl (69 kB)
+2026-11-05T13:34:30.742473Z 01O Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-11-05T13:34:30.895533Z 01O Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+2026-11-05T13:34:31.026577Z 01O Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+2026-11-05T13:34:31.233474Z 01O Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+2026-11-05T13:34:31.371376Z 01O Downloading cffi-2.1.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl (222 kB)
+2026-11-05T13:34:31.666455Z 01O Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+2026-11-05T13:34:31.775800Z 01O Installing collected packages: typing-extensions, pygments, pycparser, pluggy, packaging, itsdangerous, iniconfig, idna, h11, click, certifi, annotated-types, annotated-doc, uvicorn, typing-inspection, pytest, pydantic-core, opentelemetry-api, httpcore, cffi, anyio, starlette, pydantic, httpx, cryptography, joserfc, fastapi, Authlib
+2026-11-05T13:34:33.700708Z 01O Successfully installed Authlib-1.9.4 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.16.0 certifi-2026.10.23 cffi-2.1.1 click-8.5.0 cryptography-50.0.2 fastapi-0.162.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.20 iniconfig-2.3.1 itsdangerous-2.2.0 joserfc-1.8.0 opentelemetry-api-1.45.2 packaging-26.3 pluggy-1.7.0 pycparser-3.12 pydantic-2.14.3 pydantic-core-2.50.4 pygments-2.21.0 pytest-9.2.0 starlette-1.10.0 typing-extensions-4.16.0 typing-inspection-0.4.5 uvicorn-0.54.0
+2026-11-05T13:34:33.700724Z 01E WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+2026-11-05T13:34:33.806870Z 01O [32;1m$ python ci/run_tests.py[0;m
+2026-11-05T13:34:34.819139Z 01O .............................                                            [100%]
+2026-11-05T13:34:35.790647Z 01O =============================== warnings summary ===============================
+2026-11-05T13:34:35.790656Z 01O tests/test_app.py:16
+2026-11-05T13:34:35.790656Z 01O   /builds/s2417991/infrasec/tests/test_app.py:16: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+2026-11-05T13:34:35.790657Z 01O     from starlette.testclient import TestClient
+2026-11-05T13:34:35.790657Z 01O 
+2026-11-05T13:34:35.790704Z 01O ../../../usr/local/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5
+2026-11-05T13:34:35.790704Z 01O   /usr/local/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.
+2026-11-05T13:34:35.790705Z 01O     from ._compat import httpx2
+2026-11-05T13:34:35.790705Z 01O 
+2026-11-05T13:34:35.790706Z 01O -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2026-11-05T13:34:35.790901Z 01O 29 passed, 2 warnings in 1.32s
+2026-11-05T13:34:36.070310Z 00O section_end:1793885676:step_script[0K
+2026-11-05T13:34:36.070752Z 00O+section_start:1793885676:upload_artifacts_on_success[0K
+2026-11-05T13:34:36.070756Z 00O+[0K[36;1mUploading artifacts for successful job[0;m[0;m
+2026-11-05T13:34:36.232970Z 01O [32;1mUploading artifacts...[0;m
+2026-11-05T13:34:36.273099Z 01E ci-artifacts/tests.json: found 1 matching artifact files and directories[0;m 
+2026-11-05T13:34:36.618917Z 01E Uploading artifacts as "archive" to coordinator... 201 Created[0;m  correlation_id[0;m=01M6NYP901K6VWEPRKFZYPQSHW id[0;m=65985 status[0;m=201 token[0;m=68_ojrZsk
+2026-11-05T13:34:36.672842Z 01O [32;1mUploading artifacts...[0;m
+2026-11-05T13:34:36.710889Z 01E ci-artifacts/pytest.xml: found 1 matching artifact files and directories[0;m 
+2026-11-05T13:34:54.614062Z 01E [31;1mERROR: Uploading artifacts as "junit" to coordinator... error[0;m  [31;1mcorrelation_id[0;m=01bedf11672d4644a9f8a39c96cac462 [31;1merror[0;m=execute raw request: execute request: couldn't execute POST against https://devsecops.gitlab.yandexcloud.net/api/v4/jobs/65985/artifacts?artifact_format=gzip&artifact_type=junit&expire_in=7+days: Post "https://devsecops.gitlab.yandexcloud.net/api/v4/jobs/65985/artifacts?artifact_format=gzip&artifact_type=junit&expire_in=7+days": dial tcp 158.160.189.116:443: connect: connection refused [31;1mid[0;m=65985 [31;1mtoken[0;m=68_ojrZsk
+2026-11-05T13:34:54.614078Z 01E [0;33mWARNING: Retrying...                              [0;m  [0;33mcontext[0;m=artifacts-uploader [0;33merror[0;m=execute raw request: execute request: couldn't execute POST against https://devsecops.gitlab.yandexcloud.net/api/v4/jobs/65985/artifacts?artifact_format=gzip&artifact_type=junit&expire_in=7+days: Post "https://devsecops.gitlab.yandexcloud.net/api/v4/jobs/65985/artifacts?artifact_format=gzip&artifact_type=junit&expire_in=7+days": dial tcp 158.160.189.116:443: connect: connection refused
+2026-11-05T13:34:55.939894Z 01E Uploading artifacts as "junit" to coordinator... 201 Created[0;m  correlation_id[0;m=01M6NYPVWK9KVE1YVEXJMPP5K7 id[0;m=65985 status[0;m=201 token[0;m=68_ojrZsk
+2026-11-05T13:34:56.044844Z 00O section_end:1793885696:upload_artifacts_on_success[0K
+2026-11-05T13:34:56.045089Z 00O+section_start:1793885696:cleanup_file_variables[0K
+2026-11-05T13:34:56.045093Z 00O+[0K[36;1mCleaning up project directory and file based variables[0;m[0;m
+2026-11-05T13:34:56.273761Z 00O section_end:1793885696:cleanup_file_variables[0K
+2026-11-05T13:34:56.582651Z 00O [32;1mJob succeeded[0;m

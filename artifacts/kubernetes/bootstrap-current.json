@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "checked_at": "2026-11-05T13:31:40.490726+00:00",
+  "namespace": "infrasec",
+  "resources": [
+    "Namespace/infrasec",
+    "ServiceAccount/infrasec-deployer",
+    "Role/infrasec-deployer",
+    "RoleBinding/infrasec-deployer",
+    "ServiceAccount/frontend-sa",
+    "ServiceAccount/backend-sa",
+    "Service/frontend",
+    "Service/backend",
+    "NetworkPolicy/default-deny",
+    "NetworkPolicy/app-dns",
+    "NetworkPolicy/frontend-to-backend",
+    "NetworkPolicy/backend-from-frontend",
+    "NetworkPolicy/frontend-to-keycloak",
+    "NetworkPolicy/apps-to-vault",
+    "ConfigMap/infrasec-ca",
+    "Secret/vault-agent-ca",
+    "Secret/infrasec-registry"
+  ],
+  "deployments_applied": false,
+  "only_public_ca_copied": true,
+  "registry_scope": [
+    "read_registry"
+  ],
+  "private_credentials_saved_outside_repository": true,
+  "kubernetes_ci": {
+    "credentials_file": "kube-ci.json",
+    "token_reused": true,
+    "expires_at": "2026-11-05T15:12:56+00:00",
+    "requested_lifetime_seconds": 10800
+  }
+}

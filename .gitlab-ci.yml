@@ -1,0 +1,132 @@
+stages: [test, secrets, build, deploy, verify]
+
+workflow:
+  rules:
+    - if: '$CI_DEBUG_TRACE == "true"'
+      when: never
+    - if: '$CI_COMMIT_REF_PROTECTED == "true" && ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "infrastructure")'
+    - when: never
+
+variables:
+  INFRASEC_RUNNER_TAG: infrasec
+  GIT_DEPTH: "0"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  PYTHONUNBUFFERED: "1"
+
+default:
+  tags: ["$INFRASEC_RUNNER_TAG"]
+  timeout: 10m
+  interruptible: true
+  before_script:
+    - set +x
+    - test "${CI_DEBUG_TRACE:-false}" != "true"
+
+.python_job:
+  image: python:3.12-slim-bookworm
+  before_script:
+    - set +x
+    - test "${CI_DEBUG_TRACE:-false}" != "true"
+    - python -m pip install --no-cache-dir -r ci/requirements.txt
+
+unit_tests:
+  extends: .python_job
+  stage: test
+  before_script:
+    - set +x
+    - test "${CI_DEBUG_TRACE:-false}" != "true"
+    - python -m pip install --no-cache-dir -r app/requirements-dev.txt
+  script:
+    - python ci/run_tests.py
+  artifacts:
+    when: always
+    expire_in: 7 days
+    paths: [ci-artifacts/tests.json]
+    reports:
+      junit: ci-artifacts/pytest.xml
+
+gitleaks:
+  stage: test
+  image:
+    name: ghcr.io/gitleaks/gitleaks:v8.30.1
+    entrypoint: [""]
+  script:
+    - sh ci/gitleaks.sh
+  artifacts:
+    when: always
+    expire_in: 7 days
+    paths: [ci-artifacts/gitleaks.json]
+
+vault_secrets:
+  extends: .python_job
+  stage: secrets
+  needs:
+    - job: unit_tests
+      artifacts: false
+    - job: gitleaks
+      artifacts: false
+  environment:
+    name: infrasec
+    action: prepare
+  script:
+    - python ci/vault_secret.py
+  artifacts:
+    when: always
+    expire_in: 7 days
+    paths: [ci-artifacts/vault.json]
+
+build_image:
+  stage: build
+  needs:
+    - job: vault_secrets
+      artifacts: false
+  image:
+    name: moby/buildkit:v0.34.2-rootless
+    entrypoint: [""]
+  variables:
+    BUILDKITD_FLAGS: --oci-worker-no-process-sandbox
+  script:
+    - sh ci/build.sh
+  artifacts:
+    expire_in: 7 days
+    paths: [ci-artifacts/build.json]
+
+deploy_application:
+  extends: .python_job
+  stage: deploy
+  needs:
+    - job: build_image
+      artifacts: true
+    - job: vault_secrets
+      artifacts: true
+  resource_group: infrasec
+  environment:
+    name: infrasec
+    action: start
+    url: http://127.0.0.1:18080
+  script:
+    - python ci/deploy.py
+  artifacts:
+    when: always
+    expire_in: 7 days
+    paths: [ci-artifacts/deploy.json]
+
+verify_pipeline:
+  extends: .python_job
+  stage: verify
+  needs:
+    - job: unit_tests
+      artifacts: true
+    - job: gitleaks
+      artifacts: true
+    - job: vault_secrets
+      artifacts: true
+    - job: build_image
+      artifacts: true
+    - job: deploy_application
+      artifacts: true
+  script:
+    - python ci/verify.py
+  artifacts:
+    expire_in: 30 days
+    paths: [ci-artifacts/verification.json]

@@ -1,0 +1,11 @@
+{
+  "commit": "75a7963cbe8228dc47de127c43eabca2ed9f2a52",
+  "pipeline_id": "15909",
+  "ok": true,
+  "tool": "gitleaks",
+  "version": "8.30.1",
+  "history_findings": 0,
+  "directory_findings": 0,
+  "history_exit_code": 0,
+  "directory_exit_code": 0
+}
