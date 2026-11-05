@@ -1,0 +1,97 @@
+{
+  "pipeline_id": 15909,
+  "commit": "75a7963cbe8228dc47de127c43eabca2ed9f2a52",
+  "collected_at": "2026-11-05T13:39:28.038133+00:00",
+  "jobs": 6,
+  "job_traces": 6,
+  "json_reports": 6,
+  "tests_passed": 29,
+  "verification_checks_passed": 10,
+  "known_sensitive_literals_checked": 45,
+  "secret_literal_matches": 0,
+  "secret_pattern_matches": 0,
+  "immutable_deployment_image_verified": true,
+  "duplicate_job_report_copies": false,
+  "files": [
+    {
+      "path": "build.json",
+      "bytes": 478,
+      "sha256": "734a2d2479fa5ba1b98785029ffbcddab40315bf37aec7f59db4456ded5d6e0d"
+    },
+    {
+      "path": "deploy.json",
+      "bytes": 1088,
+      "sha256": "06e4a3ccbe2d360fa71d0ad2d61b8ce5ae49f55de5fd8bfecd35c88576414dc0"
+    },
+    {
+      "path": "gitleaks.json",
+      "bytes": 250,
+      "sha256": "09f2b26a30b140230284380d2ec3d161434412e61f7f5646ecf0ef59b4d7f48f"
+    },
+    {
+      "path": "jobs.json",
+      "bytes": 3943,
+      "sha256": "d4a20f40146f7b7b4a2fcf5007b9c5d211b5041a8e26dda5832397bf66f92b89"
+    },
+    {
+      "path": "logs/65985-unit_tests.log",
+      "bytes": 18269,
+      "sha256": "d9f22cf5d2b993393cee7733fc950f80636e2a87186fdffd770c442b303dd86f"
+    },
+    {
+      "path": "logs/65986-gitleaks.log",
+      "bytes": 4713,
+      "sha256": "2482049baba554d02612f6e75c0ea60e501cdba8ca33671410f450723b3d52ec"
+    },
+    {
+      "path": "logs/65987-vault_secrets.log",
+      "bytes": 7640,
+      "sha256": "2010b5a6d716d822db5f9d8d5adefe9ee2ebd7f9c0f1341c2113825f00a4d155"
+    },
+    {
+      "path": "logs/65988-build_image.log",
+      "bytes": 23496,
+      "sha256": "d201086e8b05bc33c9780c94f7da6cfd74964d68fde2ccb7e9e8e0afffb0ab4f"
+    },
+    {
+      "path": "logs/65989-deploy_application.log",
+      "bytes": 8515,
+      "sha256": "713c1412dffe05d9fb82c076688e3e2cc8170a7faf033ad1380c53cf21fb8be5"
+    },
+    {
+      "path": "logs/65990-verify_pipeline.log",
+      "bytes": 9756,
+      "sha256": "bf740c8ea01632749b636aa6adac4b8e4108abcc54b0c280367172670bf0f909"
+    },
+    {
+      "path": "metadata.json",
+      "bytes": 511,
+      "sha256": "7908078e63e858b18a31d299d1fa15acd016b0644dcf6dcc9c74b88d18f1988f"
+    },
+    {
+      "path": "test-report-summary.json",
+      "bytes": 439,
+      "sha256": "22421754d426876e445e294efbf9b3c027bf76576c880f980b076b34037aa94a"
+    },
+    {
+      "path": "tests.json",
+      "bytes": 215,
+      "sha256": "17bbf66b16e4d9468469c81a8a81279c7948bb511f52e33a2277172dbe2bfc6a"
+    },
+    {
+      "path": "variables-metadata.json",
+      "bytes": 1608,
+      "sha256": "0de2585af88e9040f586c2c8b2a8d6a2d93a0470593b93e88c80b5b9b550b288"
+    },
+    {
+      "path": "vault.json",
+      "bytes": 393,
+      "sha256": "f9f5ab25ec23f78826f768929b98533bdd06da86196b9f1d227e6bcfeb8f0643"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 1607,
+      "sha256": "ef0d68d4c9d4b8ea379fad7ebf7db11877a83d6f9e58ae8924af6f2de4af912f"
+    }
+  ]
+}

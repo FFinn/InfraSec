@@ -1,4 +1,0 @@
-2026-11-05T12:07:17.189171+00:00
-NAME                        READY   STATUS    RESTARTS   AGE    IP              NODE                   NOMINATED NODE   READINESS GATES
-backend-dd9f6c58b-82q7l     2/2     Running   0          102s   10.200.210.99   fhmjsse5e304ls6j56m0   <none>           <none>
-frontend-5c545775c4-sdrzz   2/2     Running   0          102s   10.200.210.98   fhmjsse5e304ls6j56m0   <none>           <none>

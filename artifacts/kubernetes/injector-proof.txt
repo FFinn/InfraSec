@@ -1,10 +1,15 @@
 Kubernetes: фактический вывод kubectl и проверка внедрённых файлов
-Время проверки: 2026-11-05T13:11:08.275491+00:00
+Время проверки: 2026-11-05T13:40:26.022754+00:00
 
 kubectl -n infrasec get pods -o wide
-NAME                        READY   STATUS    RESTARTS   AGE   IP               NODE                   NOMINATED NODE   READINESS GATES
-backend-5f9d5c6959-hzc9z    2/2     Running   0          23m   10.200.210.115   fhmjsse5e304ls6j56m0   <none>           <none>
-frontend-7c9d4dcc99-mx7sb   2/2     Running   0          23m   10.200.210.114   fhmjsse5e304ls6j56m0   <none>           <none>
+NAME                       READY   STATUS    RESTARTS   AGE     IP               NODE                   NOMINATED NODE   READINESS GATES
+backend-6df454fc45-dz6zq   2/2     Running   0          3m45s   10.200.210.118   fhmjsse5e304ls6j56m0   <none>           <none>
+frontend-f79786fcc-wvxzx   2/2     Running   0          3m45s   10.200.210.117   fhmjsse5e304ls6j56m0   <none>           <none>
+
+kubectl -n infrasec get deployments -o custom-columns=NAME:.metadata.name,IMAGE:.spec.template.spec.containers[0].image
+NAME       IMAGE
+backend    devsecops.gitlab.yandexcloud.net:5050/s2417991/infrasec/app@sha256:b0ed311bea70b2889b096eda49b342ccc0082e80987a56d5cc9d8af0ada921a4
+frontend   devsecops.gitlab.yandexcloud.net:5050/s2417991/infrasec/app@sha256:b0ed311bea70b2889b096eda49b342ccc0082e80987a56d5cc9d8af0ada921a4
 
 Файл /vault/secrets/config.json (значения не выводятся):
 frontend: под и внедрённый файл секрета
@@ -32,3 +37,4 @@ backend: под и внедрённый файл секрета
 
 Полная проверка: 21 успешно, 0 ошибок.
 Источник: scripts/verify_integration.py, artifacts/integration/verification.json
+Временных namespace infrasec-check-* после сетевой проверки: 0.

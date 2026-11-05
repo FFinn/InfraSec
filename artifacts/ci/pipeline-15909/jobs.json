@@ -1,0 +1,146 @@
+[
+  {
+    "id": 65985,
+    "name": "unit_tests",
+    "stage": "test",
+    "status": "success",
+    "ref": "infrastructure",
+    "tag": false,
+    "allow_failure": false,
+    "created_at": "2026-11-05T13:33:56.959Z",
+    "started_at": "2026-11-05T13:34:00.544Z",
+    "finished_at": "2026-11-05T13:34:56.945Z",
+    "duration": 56.401541,
+    "queued_duration": 2.770533,
+    "web_url": "https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/jobs/65985",
+    "artifacts_file": {
+      "filename": "artifacts.zip",
+      "size": 388
+    },
+    "runner": {
+      "id": 71,
+      "description": "InfraSec",
+      "runner_type": "project_type"
+    }
+  },
+  {
+    "id": 65986,
+    "name": "gitleaks",
+    "stage": "test",
+    "status": "success",
+    "ref": "infrastructure",
+    "tag": false,
+    "allow_failure": false,
+    "created_at": "2026-11-05T13:33:56.959Z",
+    "started_at": "2026-11-05T13:34:57.178Z",
+    "finished_at": "2026-11-05T13:35:02.763Z",
+    "duration": 5.585421,
+    "queued_duration": 59.102553,
+    "web_url": "https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/jobs/65986",
+    "artifacts_file": {
+      "filename": "artifacts.zip",
+      "size": 378
+    },
+    "runner": {
+      "id": 71,
+      "description": "InfraSec",
+      "runner_type": "project_type"
+    }
+  },
+  {
+    "id": 65987,
+    "name": "vault_secrets",
+    "stage": "secrets",
+    "status": "success",
+    "ref": "infrastructure",
+    "tag": false,
+    "allow_failure": false,
+    "created_at": "2026-11-05T13:33:56.959Z",
+    "started_at": "2026-11-05T13:35:05.968Z",
+    "finished_at": "2026-11-05T13:35:17.884Z",
+    "duration": 11.916219,
+    "queued_duration": 3.032647,
+    "web_url": "https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/jobs/65987",
+    "artifacts_file": {
+      "filename": "artifacts.zip",
+      "size": 491
+    },
+    "runner": {
+      "id": 71,
+      "description": "InfraSec",
+      "runner_type": "project_type"
+    }
+  },
+  {
+    "id": 65988,
+    "name": "build_image",
+    "stage": "build",
+    "status": "success",
+    "ref": "infrastructure",
+    "tag": false,
+    "allow_failure": false,
+    "created_at": "2026-11-05T13:33:56.959Z",
+    "started_at": "2026-11-05T13:35:21.125Z",
+    "finished_at": "2026-11-05T13:36:22.916Z",
+    "duration": 61.790983,
+    "queued_duration": 3.054742,
+    "web_url": "https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/jobs/65988",
+    "artifacts_file": {
+      "filename": "artifacts.zip",
+      "size": 447
+    },
+    "runner": {
+      "id": 71,
+      "description": "InfraSec",
+      "runner_type": "project_type"
+    }
+  },
+  {
+    "id": 65989,
+    "name": "deploy_application",
+    "stage": "deploy",
+    "status": "success",
+    "ref": "infrastructure",
+    "tag": false,
+    "allow_failure": false,
+    "created_at": "2026-11-05T13:33:56.959Z",
+    "started_at": "2026-11-05T13:36:26.179Z",
+    "finished_at": "2026-11-05T13:36:53.344Z",
+    "duration": 27.16458,
+    "queued_duration": 2.593926,
+    "web_url": "https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/jobs/65989",
+    "artifacts_file": {
+      "filename": "artifacts.zip",
+      "size": 691
+    },
+    "runner": {
+      "id": 71,
+      "description": "InfraSec",
+      "runner_type": "project_type"
+    }
+  },
+  {
+    "id": 65990,
+    "name": "verify_pipeline",
+    "stage": "verify",
+    "status": "success",
+    "ref": "infrastructure",
+    "tag": false,
+    "allow_failure": false,
+    "created_at": "2026-11-05T13:33:56.959Z",
+    "started_at": "2026-11-05T13:36:56.570Z",
+    "finished_at": "2026-11-05T13:37:09.718Z",
+    "duration": 13.148225,
+    "queued_duration": 2.888991,
+    "web_url": "https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/jobs/65990",
+    "artifacts_file": {
+      "filename": "artifacts.zip",
+      "size": 752
+    },
+    "runner": {
+      "id": 71,
+      "description": "InfraSec",
+      "runner_type": "project_type"
+    }
+  }
+]

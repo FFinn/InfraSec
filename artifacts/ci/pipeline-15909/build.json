@@ -1,0 +1,9 @@
+{
+  "commit": "75a7963cbe8228dc47de127c43eabca2ed9f2a52",
+  "pipeline_id": "15909",
+  "ok": true,
+  "image": "devsecops.gitlab.yandexcloud.net:5050/s2417991/infrasec/app:75a7963cbe8228dc47de127c43eabca2ed9f2a52",
+  "digest": "sha256:b0ed311bea70b2889b096eda49b342ccc0082e80987a56d5cc9d8af0ada921a4",
+  "deployment_image": "devsecops.gitlab.yandexcloud.net:5050/s2417991/infrasec/app@sha256:b0ed311bea70b2889b096eda49b342ccc0082e80987a56d5cc9d8af0ada921a4",
+  "rootless": true
+}

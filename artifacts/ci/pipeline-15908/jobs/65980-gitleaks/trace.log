@@ -1,48 +1,0 @@
-2026-11-05T12:52:00.060288Z 00O [0KRunning with gitlab-runner 19.3.1 (a16f5092)[0;m
-2026-11-05T12:52:00.060424Z 00O [0K  on InfraSec Mac yQulHKIMk, system ID: r_K8dSHSx0C0Ah[0;m
-2026-11-05T12:52:00.060481Z 00O [0K  feature flags: FF_NETWORK_PER_BUILD:true, FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR:true[0;m
-2026-11-05T12:52:00.060567Z 00O section_start:1793883120:prepare_executor[0K
-2026-11-05T12:52:00.060574Z 00O+[0K[36;1mPreparing the "docker" executor[0;m[0;m
-2026-11-05T12:52:00.081181Z 00O [0KUsing Docker executor with image ghcr.io/gitleaks/gitleaks:v8.30.1 ...[0;m
-2026-11-05T12:52:00.630244Z 00O [0KUsing effective pull policy of [always] for container ghcr.io/gitleaks/gitleaks:v8.30.1[0;m
-2026-11-05T12:52:00.633960Z 00O [0KPulling docker image ghcr.io/gitleaks/gitleaks:v8.30.1 ...[0;m
-2026-11-05T12:52:20.743314Z 00O [0KUsing docker image sha256:98cdb5c1bab61cb6687958ae769a04d74bb808bd0b65756e6e9c5cd119a7061c for ghcr.io/gitleaks/gitleaks:v8.30.1 with digest ghcr.io/gitleaks/gitleaks@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f ...[0;m
-2026-11-05T12:52:20.743325Z 00O [0KNot using umask - FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR is set![0;m
-2026-11-05T12:52:20.743329Z 00O section_end:1793883140:prepare_executor[0K
-2026-11-05T12:52:20.743427Z 00O+section_start:1793883140:prepare_script[0K
-2026-11-05T12:52:20.743431Z 00O+[0K[36;1mPreparing environment[0;m[0;m
-2026-11-05T12:52:20.744875Z 00O [0KUsing effective pull policy of [always] for container sha256:d3ba89fb5beeda0672c1a8241762b1d3dcff4a84cb48adf69c5a16c8834d884d[0;m
-2026-11-05T12:52:21.001676Z 01O Running on runner-yqulhkimk-project-1165-concurrent-0 via 044c275c6d0a...
-2026-11-05T12:52:21.078301Z 00O section_end:1793883141:prepare_script[0K
-2026-11-05T12:52:21.078748Z 00O+section_start:1793883141:get_sources[0K
-2026-11-05T12:52:21.078752Z 00O+[0K[36;1mGetting source from Git repository[0;m[0;m
-2026-11-05T12:52:21.193011Z 01O [32;1mGitaly correlation ID: 01M6NW88391T71BJ8TZAS88GY8[0;m
-2026-11-05T12:52:21.196037Z 01O [32;1mFetching changes...[0;m
-2026-11-05T12:52:21.197409Z 01O Reinitialized existing Git repository in /builds/s2417991/infrasec/.git/
-2026-11-05T12:52:21.198689Z 01O [32;1mCreated fresh repository.[0;m
-2026-11-05T12:52:21.706454Z 01O [32;1mChecking out cf8dae14 as detached HEAD (ref is infrastructure)...[0;m
-2026-11-05T12:52:21.712513Z 01O Removing .pytest_cache/
-2026-11-05T12:52:21.712522Z 01O Removing ci-artifacts/
-2026-11-05T12:52:21.752757Z 01O 
-2026-11-05T12:52:21.752771Z 01O [32;1mSkipping Git submodules setup[0;m
-2026-11-05T12:52:21.847650Z 00O section_end:1793883141:get_sources[0K
-2026-11-05T12:52:21.848355Z 00O+section_start:1793883141:step_script[0K
-2026-11-05T12:52:21.848361Z 00O+[0K[36;1mExecuting "step_script" stage of the job script[0;m[0;m
-2026-11-05T12:52:21.848372Z 00O [0KUsing effective pull policy of [always] for container ghcr.io/gitleaks/gitleaks:v8.30.1[0;m
-2026-11-05T12:52:21.850424Z 00O [0KUsing docker image sha256:98cdb5c1bab61cb6687958ae769a04d74bb808bd0b65756e6e9c5cd119a7061c for ghcr.io/gitleaks/gitleaks:v8.30.1 with digest ghcr.io/gitleaks/gitleaks@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f ...[0;m
-2026-11-05T12:52:22.079953Z 01O [32;1m$ set +x[0;m
-2026-11-05T12:52:22.079982Z 01O [32;1m$ test "${CI_DEBUG_TRACE:-false}" != "true"[0;m
-2026-11-05T12:52:22.079983Z 01O [32;1m$ sh ci/gitleaks.sh[0;m
-2026-11-05T12:52:22.219916Z 01O Gitleaks git: найдено 0; код завершения 0.
-2026-11-05T12:52:22.332259Z 01O Gitleaks dir: найдено 0; код завершения 0.
-2026-11-05T12:52:22.421288Z 00O section_end:1793883142:step_script[0K
-2026-11-05T12:52:22.422289Z 00O+section_start:1793883142:upload_artifacts_on_success[0K
-2026-11-05T12:52:22.422295Z 00O+[0K[36;1mUploading artifacts for successful job[0;m[0;m
-2026-11-05T12:52:22.598868Z 01O [32;1mUploading artifacts...[0;m
-2026-11-05T12:52:22.635218Z 01E ci-artifacts/gitleaks.json: found 1 matching artifact files and directories[0;m 
-2026-11-05T12:52:23.106920Z 01E Uploading artifacts as "archive" to coordinator... 201 Created[0;m  correlation_id[0;m=01M6NW8YSTX256TTN78S5C6YHM id[0;m=65980 status[0;m=201 token[0;m=68_v8rFHp
-2026-11-05T12:52:23.192914Z 00O section_end:1793883143:upload_artifacts_on_success[0K
-2026-11-05T12:52:23.193203Z 00O+section_start:1793883143:cleanup_file_variables[0K
-2026-11-05T12:52:23.193208Z 00O+[0K[36;1mCleaning up project directory and file based variables[0;m[0;m
-2026-11-05T12:52:23.425655Z 00O section_end:1793883143:cleanup_file_variables[0K
-2026-11-05T12:52:23.721003Z 00O [32;1mJob succeeded[0;m

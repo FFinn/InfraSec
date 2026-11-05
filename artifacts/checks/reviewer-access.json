@@ -1,0 +1,34 @@
+{
+  "ok": true,
+  "checked_at": "2026-11-05T13:35:40.540088+00:00",
+  "checks": [
+    {
+      "url": "https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec",
+      "status": 200,
+      "without_authentication": true,
+      "redirected_to_login": false,
+      "bytes_received": 39163
+    },
+    {
+      "url": "https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/merge_requests/1",
+      "status": 200,
+      "without_authentication": true,
+      "redirected_to_login": false,
+      "bytes_received": 62716
+    },
+    {
+      "url": "https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/raw/infrastructure/README.md",
+      "status": 200,
+      "without_authentication": true,
+      "redirected_to_login": false,
+      "bytes_received": 44048
+    },
+    {
+      "url": "https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/archive/infrastructure/infrasec-infrastructure.zip",
+      "status": 200,
+      "without_authentication": true,
+      "redirected_to_login": false,
+      "bytes_received": 1048626
+    }
+  ]
+}

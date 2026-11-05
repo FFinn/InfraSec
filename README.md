@@ -2,7 +2,7 @@
 
 Учебное приложение состоит из веб-сервиса и внутреннего API. Пользователи входят через Keycloak с учётными записями LDAP. Секреты хранятся в HashiCorp Vault: приложение получает их через Vault Agent Injector, GitLab CI и Ansible — через отдельные AppRole.
 
-Работа выполнена на двух выданных учебных ВМ. Проверки проведены 5 ноября 2026 года. [Конвейер №15908](https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/pipelines/15908) успешно выполнил тесты, проверку секретов, сборку образа и развёртывание приложения.
+Работа выполнена на двух выданных учебных ВМ. Проверки проведены 5 ноября 2026 года. [Конвейер №15909](https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/pipelines/15909) успешно выполнил тесты, проверку секретов, сборку образа и развёртывание приложения.
 
 ## Содержание
 
@@ -335,8 +335,6 @@ app/.venv/bin/python scripts/verify_integration.py \
 
 ## Проверки и доказательства
 
-[Результаты финального ревью](artifacts/review.md).
-
 
 | Проверка | Подтверждение |
 |---|---|
@@ -345,18 +343,20 @@ app/.venv/bin/python scripts/verify_integration.py \
 | KV v2, методы входа и политики | [configuration.json](artifacts/vault/configuration.json) |
 | Раздельные AppRole, запрет чужих путей и записи | [17 проверок, ошибок нет](artifacts/checks/vault-approle-check.json) |
 | Защищённые переменные CI | [Метаданные без значений](artifacts/checks/gitlab-protected-variables.json) |
-| Реальная сборка и развёртывание через GitLab | [Конвейер №15908](https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/pipelines/15908), [метаданные и журналы шести задач](artifacts/ci/pipeline-15908), [сверка одного коммита](artifacts/ci/pipeline-15908/verification.json) |
+| Реальная сборка и развёртывание через GitLab | [Конвейер №15909](https://devsecops.gitlab.yandexcloud.net/s2417991/infrasec/-/pipelines/15909), [метаданные и журналы шести задач](artifacts/ci/pipeline-15909), [сверка одного коммита](artifacts/ci/pipeline-15909/verification.json) |
 | Приложение, OIDC-вход, Vault, запрет доступа с другим ServiceAccount | [Итоговый JSON](artifacts/integration/verification.json), [читаемый отчёт](artifacts/integration/verification.md) |
 | Сетевая изоляция с положительным контролем | [network-policy.txt](artifacts/integration/network-policy.txt) |
 | Приложение и Agent доверяют новому CA | [ha-cutover.json](artifacts/kubernetes/ha-cutover.json) |
+| Подготовка Kubernetes: два запуска без замены подов и Secret | [Итог](artifacts/kubernetes/bootstrap-current.json), [повторный запуск](artifacts/kubernetes/bootstrap-idempotence.json) |
 | Ansible: первый и повторный запуск | [Результат и отсутствие секретов в логах](artifacts/ansible/verification.json), [первый запуск](artifacts/ansible/run-first.txt), [повторный запуск](artifacts/ansible/run-second.txt) |
-| Проверка секретов в коде | Gitleaks в успешном конвейере; [первичная локальная проверка](artifacts/checks/gitleaks-initial.json) |
+| Доступ ревьюера без авторизации | [Проверка репозитория, MR и скачивания файлов](artifacts/checks/reviewer-access.json) |
+| Проверка секретов в коде | Gitleaks в успешном конвейере; [всё содержимое](artifacts/checks/secrets-final-directory.json), [история коммитов](artifacts/checks/secrets-final-history.json) |
 
 Проверка NetworkPolicy выполняет три запроса: frontend достигает backend (ответ `401` без API-ключа), под из постороннего namespace получает тайм-аут, frontend повторно достигает backend. Положительный контроль исключает ложный результат из-за неработающего сервиса. Полная проверка отдельно подтверждает ответ `200` с правильным ключом.
 
 Ansible выполнил оба запуска без ошибок: первый — `ok=13, changed=1`, повторный — `ok=13, changed=0`. Плейбук проверил права `0600` и совпадение SHA256 файла с секретом Vault. Значений секрета в сохранённых журналах нет.
 
-Конвейер №15908 выполнил 20 тестов без пропусков; все десять итоговых условий в `verification.json` выполнены. Журналы и метаданные перед сохранением проверены на совпадения с известными значениями секретов. Полные ответы GitLab с переменными не сохраняются.
+Конвейер №15909 выполнил 29 тестов без пропусков; все десять итоговых условий в `verification.json` выполнены. Журналы и метаданные перед сохранением проверены на совпадения с известными значениями секретов. Полные ответы GitLab с переменными не сохраняются.
 
 Полная проверка работающей системы завершилась с результатом **21 успешно, 0 ошибок**. Она проверяет вход обоих LDAP-пользователей, запрет доступа без входа и после выхода, API-ключ backend, файлы Agent, ограничения ServiceAccount, аудиторию JWT, чужие пути Vault и отзыв тестовых токенов.
 

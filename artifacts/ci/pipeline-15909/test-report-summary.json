@@ -1,0 +1,26 @@
+{
+  "total": {
+    "time": 1.327,
+    "count": 29,
+    "success": 29,
+    "failed": 0,
+    "skipped": 0,
+    "error": 0,
+    "suite_error": null
+  },
+  "test_suites": [
+    {
+      "name": "unit_tests",
+      "total_time": 1.327,
+      "total_count": 29,
+      "success_count": 29,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "error_count": 0,
+      "build_ids": [
+        65985
+      ],
+      "suite_error": null
+    }
+  ]
+}

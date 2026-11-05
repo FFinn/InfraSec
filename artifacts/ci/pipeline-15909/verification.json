@@ -1,0 +1,43 @@
+{
+  "commit": "75a7963cbe8228dc47de127c43eabca2ed9f2a52",
+  "pipeline_id": "15909",
+  "recorded_at": "2026-11-05T13:37:08.087779+00:00",
+  "ok": true,
+  "checks": {
+    "application_tests": true,
+    "no_secrets_in_git_history": true,
+    "no_secrets_in_working_directory": true,
+    "vault_secret_received": true,
+    "vault_token_revoked": true,
+    "oci_image_built": true,
+    "application_deployed": true,
+    "vault_secret_used_in_deploy": true,
+    "deploy_vault_token_revoked": true,
+    "tls_verified": true
+  },
+  "tests_passed": 29,
+  "image": "devsecops.gitlab.yandexcloud.net:5050/s2417991/infrasec/app@sha256:b0ed311bea70b2889b096eda49b342ccc0082e80987a56d5cc9d8af0ada921a4",
+  "image_tag": "devsecops.gitlab.yandexcloud.net:5050/s2417991/infrasec/app:75a7963cbe8228dc47de127c43eabca2ed9f2a52",
+  "image_digest": "sha256:b0ed311bea70b2889b096eda49b342ccc0082e80987a56d5cc9d8af0ada921a4",
+  "deployments": [
+    {
+      "name": "frontend",
+      "namespace": "infrasec",
+      "generation": 5,
+      "updated_replicas": 1,
+      "available_replicas": 1,
+      "ready": true,
+      "image": "devsecops.gitlab.yandexcloud.net:5050/s2417991/infrasec/app@sha256:b0ed311bea70b2889b096eda49b342ccc0082e80987a56d5cc9d8af0ada921a4"
+    },
+    {
+      "name": "backend",
+      "namespace": "infrasec",
+      "generation": 4,
+      "updated_replicas": 1,
+      "available_replicas": 1,
+      "ready": true,
+      "image": "devsecops.gitlab.yandexcloud.net:5050/s2417991/infrasec/app@sha256:b0ed311bea70b2889b096eda49b342ccc0082e80987a56d5cc9d8af0ada921a4"
+    }
+  ],
+  "secret_values_in_report": false
+}
