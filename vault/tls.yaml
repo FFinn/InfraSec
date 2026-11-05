@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infrasec-vault
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: infrasec-bootstrap
+  namespace: infrasec-vault
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: infrasec-ca
+  namespace: infrasec-vault
+spec:
+  isCA: true
+  commonName: infrasec-ca
+  secretName: infrasec-ca
+  duration: 2160h
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: infrasec-bootstrap
+    kind: Issuer
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: infrasec-ca
+  namespace: infrasec-vault
+spec:
+  ca:
+    secretName: infrasec-ca
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: infrasec-vault-server
+  namespace: infrasec-vault
+spec:
+  secretName: infrasec-vault-tls
+  duration: 720h
+  renewBefore: 120h
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: infrasec-ca
+    kind: Issuer
+  usages: [server auth]
+  ipAddresses: [127.0.0.1]
+  dnsNames:
+    - localhost
+    - infrasec-vault
+    - infrasec-vault.infrasec-vault.svc
+    - infrasec-vault.infrasec-vault.svc.cluster.local
+    - infrasec-vault-active
+    - infrasec-vault-active.infrasec-vault.svc
+    - infrasec-vault-active.infrasec-vault.svc.cluster.local
+    - infrasec-vault-0.infrasec-vault-internal
+    - infrasec-vault-1.infrasec-vault-internal
+    - infrasec-vault-2.infrasec-vault-internal
+    - infrasec-vault-0.infrasec-vault-internal.infrasec-vault.svc
+    - infrasec-vault-1.infrasec-vault-internal.infrasec-vault.svc
+    - infrasec-vault-2.infrasec-vault-internal.infrasec-vault.svc
+    - '*.infrasec-vault-internal.infrasec-vault.svc'
+    - '*.infrasec-vault-internal.infrasec-vault.svc.cluster.local'

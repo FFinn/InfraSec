@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: infrasec-deployer
+  namespace: infrasec
+automountServiceAccountToken: false
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: infrasec-deployer
+  namespace: infrasec
+rules:
+  - apiGroups: [apps]
+    resources: [deployments]
+    verbs: [get, list, watch, create, update, patch]
+  - apiGroups: [apps]
+    resources: [replicasets]
+    verbs: [get, list, watch]
+  - apiGroups: [""]
+    resources: [pods]
+    verbs: [get, list, watch]
+  - apiGroups: [""]
+    resources: [services]
+    verbs: [get]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: infrasec-deployer
+  namespace: infrasec
+subjects:
+  - kind: ServiceAccount
+    name: infrasec-deployer
+    namespace: infrasec
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: infrasec-deployer

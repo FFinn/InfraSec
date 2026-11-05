@@ -1,0 +1,24 @@
+name: infrasec-runner
+
+services:
+  runner:
+    image: gitlab/gitlab-runner:alpine-v19.3.1
+    container_name: infrasec-gitlab-runner
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ${INFRASEC_RUNNER_CONFIG_DIR:?Run scripts/runner_setup.py first}
+        target: /etc/gitlab-runner
+      # Только координатор управляет Docker. config.toml не передаёт socket в jobs.
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 256m
+    cpus: 0.5
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "2"

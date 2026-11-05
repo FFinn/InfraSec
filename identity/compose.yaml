@@ -1,0 +1,93 @@
+name: infrasec-identity
+
+services:
+  postgres:
+    image: postgres:17.11-bookworm
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Pass the protected identity.env file}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks: [identity]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U keycloak -d keycloak"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 512m
+    restart: unless-stopped
+
+  openldap:
+    image: osixia/openldap:1.5.0
+    command: [--copy-service]
+    environment:
+      LDAP_ORGANISATION: InfraSec
+      LDAP_DOMAIN: infrasec.test
+      LDAP_ADMIN_PASSWORD: ${LDAP_ADMIN_PASSWORD:?Pass the protected identity.env file}
+      LDAP_CONFIG_PASSWORD: ${LDAP_CONFIG_PASSWORD:?Pass the protected identity.env file}
+      LDAP_TLS: "false"
+    volumes:
+      - ldap-data:/var/lib/ldap
+      - ldap-config:/etc/ldap/slapd.d
+      - type: bind
+        source: ${IDENTITY_PRIVATE_DIR:?Set IDENTITY_PRIVATE_DIR}/ldap-bootstrap.ldif
+        target: /container/service/slapd/assets/config/bootstrap/ldif/custom/50-infrasec.ldif
+        read_only: true
+      - type: bind
+        source: ./ldap-acl.ldif
+        target: /run/infrasec-ldap-acl.ldif
+        read_only: true
+      - type: bind
+        source: ${IDENTITY_PRIVATE_DIR:?Set IDENTITY_PRIVATE_DIR}/ldap-reader-password
+        target: /run/secrets/ldap-reader-password
+        read_only: true
+    networks: [identity]
+    healthcheck:
+      test: [CMD, ldapwhoami, -x, -H, "ldap://127.0.0.1:389"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    mem_limit: 384m
+    restart: unless-stopped
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.8.1
+    command: [start]
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD:?Pass the protected identity.env file}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_BOOTSTRAP_USERNAME:?Pass identity.env}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_BOOTSTRAP_PASSWORD:?Pass identity.env}
+      KC_HOSTNAME: ${KC_PUBLIC_URL:-http://127.0.0.1:18081}
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
+      KC_HTTP_ENABLED: "true"
+      KC_HEALTH_ENABLED: "true"
+      KC_HTTP_MANAGEMENT_HEALTH_ENABLED: "true"
+      JAVA_OPTS_APPEND: -XX:MaxRAMPercentage=60
+    ports:
+      - "127.0.0.1:8085:8080"
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+    networks: [identity]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      openldap:
+        condition: service_healthy
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 2g
+    restart: unless-stopped
+
+networks:
+  identity:
+    name: infrasec-identity
+
+volumes:
+  postgres-data:
+  keycloak-data:
+  ldap-data:
+  ldap-config:

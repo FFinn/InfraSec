@@ -1,0 +1,22 @@
+services:
+  keycloak:
+    environment:
+      KC_PROXY_HEADERS: xforwarded
+  tls-proxy:
+    image: nginx:1.30-alpine@sha256:0e52bd054126cdc040b1276c0af347aeb02a41b9cfe305d6094767ac30e97949
+    user: "1000:1000"
+    entrypoint: [nginx, -g, "daemon off;"]
+    ports:
+      - "10.91.0.36:8443:8443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ${IDENTITY_PRIVATE_DIR:?Set IDENTITY_PRIVATE_DIR}/tls:/run/infrasec-tls:ro
+    tmpfs:
+      - /tmp:uid=1000,gid=1000,mode=0700
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [identity]
+    mem_limit: 64m
+    depends_on: [keycloak]
+    restart: unless-stopped

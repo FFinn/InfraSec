@@ -1,0 +1,119 @@
+# Веб-приложение открывается через kubectl port-forward с проверкой прав Kubernetes.
+# Публичный входящий порт не создаётся. Проброс через API Kubernetes не требует
+# разрешать обычный входящий трафик от других подов к frontend.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: infrasec
+spec:
+  podSelector: {}
+  policyTypes: [Ingress, Egress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: app-dns
+  namespace: infrasec
+spec:
+  podSelector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values: [frontend, backend]
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: frontend-to-backend
+  namespace: infrasec
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: backend
+      ports:
+        - protocol: TCP
+          port: 8000
+---
+# Разрешены обе стороны нового соединения: egress frontend и ingress backend.
+# Ответы по установленному соединению разрешаются NetworkPolicy автоматически.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: backend-from-frontend
+  namespace: infrasec
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: frontend
+      ports:
+        - protocol: TCP
+          port: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: frontend-to-keycloak
+  namespace: infrasec
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - ipBlock:
+            cidr: 10.91.0.17/32
+      ports:
+        - protocol: TCP
+          port: 18443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: apps-to-vault
+  namespace: infrasec
+spec:
+  podSelector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values: [frontend, backend]
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: infrasec-vault
+          podSelector:
+            matchLabels:
+              component: server
+      ports:
+        - protocol: TCP
+          port: 8200

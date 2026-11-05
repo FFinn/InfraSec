@@ -1,0 +1,288 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: frontend-sa
+  namespace: infrasec
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: backend-sa
+  namespace: infrasec
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: infrasec
+spec:
+  type: ClusterIP
+  selector:
+    app: frontend
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: infrasec
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: infrasec
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: infrasec-frontend
+        vault.hashicorp.com/service: https://infrasec-vault-active.infrasec-vault.svc:8200
+        vault.hashicorp.com/agent-inject-secret-config.json: secret/data/infrasec/app/frontend
+        vault.hashicorp.com/agent-inject-template-config.json: |
+          {{- with secret "secret/data/infrasec/app/frontend" -}}
+          {{ .Data.data | toJSON }}
+          {{- end -}}
+        vault.hashicorp.com/agent-inject-perms-config.json: "0400"
+        vault.hashicorp.com/agent-pre-populate: "true"
+        vault.hashicorp.com/agent-pre-populate-only: "false"
+        vault.hashicorp.com/agent-inject-token: "false"
+        vault.hashicorp.com/agent-run-as-same-user: "true"
+        vault.hashicorp.com/agent-run-as-group: "1000"
+        vault.hashicorp.com/agent-set-security-context: "true"
+        vault.hashicorp.com/agent-service-account-token-volume-name: vault-auth
+        vault.hashicorp.com/template-static-secret-render-interval: "15s"
+        vault.hashicorp.com/tls-secret: vault-agent-ca
+        vault.hashicorp.com/ca-cert: /vault/tls/ca.crt
+        vault.hashicorp.com/tls-server-name: infrasec-vault-active.infrasec-vault.svc
+        vault.hashicorp.com/agent-json-patch: >-
+          [{"op":"add","path":"/securityContext","value":{"runAsNonRoot":true,"runAsUser":1000,"runAsGroup":1000,"allowPrivilegeEscalation":false,"readOnlyRootFilesystem":true,"capabilities":{"drop":["ALL"]},"seccompProfile":{"type":"RuntimeDefault"}}}]
+        vault.hashicorp.com/agent-init-json-patch: >-
+          [{"op":"add","path":"/securityContext","value":{"runAsNonRoot":true,"runAsUser":1000,"runAsGroup":1000,"allowPrivilegeEscalation":false,"readOnlyRootFilesystem":true,"capabilities":{"drop":["ALL"]},"seccompProfile":{"type":"RuntimeDefault"}}}]
+    spec:
+      serviceAccountName: frontend-sa
+      hostAliases:
+        - ip: 10.91.0.17
+          hostnames:
+            - keycloak.infrasec.internal
+      imagePullSecrets:
+        - name: infrasec-registry
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - name: vault-auth
+          projected:
+            defaultMode: 0440
+            sources:
+              - serviceAccountToken:
+                  audience: vault
+                  expirationSeconds: 600
+                  path: token
+        - name: infrasec-ca
+          configMap:
+            name: infrasec-ca
+            items:
+              - key: ca.crt
+                path: ca.crt
+        - name: tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: 16Mi
+      containers:
+        - name: app
+          image: INFRASEC_APP_IMAGE
+          imagePullPolicy: IfNotPresent
+          command: [uvicorn]
+          args: ["infrasec.web:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000", "--no-access-log"]
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: VAULT_CONFIG_FILE
+              value: /vault/secrets/config.json
+            - name: KEYCLOAK_PUBLIC_URL
+              value: http://127.0.0.1:18081/realms/infrasec
+            - name: KEYCLOAK_INTERNAL_URL
+              value: https://keycloak.infrasec.internal:18443/realms/infrasec
+            - name: OIDC_CLIENT_ID
+              value: infrasec-web
+            - name: APP_PUBLIC_URL
+              value: http://127.0.0.1:18080
+            - name: BACKEND_URL
+              value: http://backend:8000
+            - name: SSL_CERT_FILE
+              value: /etc/infrasec-ca/ca.crt
+          volumeMounts:
+            - name: infrasec-ca
+              mountPath: /etc/infrasec-ca
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+            seccompProfile:
+              type: RuntimeDefault
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 96Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: infrasec
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: infrasec-backend
+        vault.hashicorp.com/service: https://infrasec-vault-active.infrasec-vault.svc:8200
+        vault.hashicorp.com/agent-inject-secret-config.json: secret/data/infrasec/app/backend
+        vault.hashicorp.com/agent-inject-template-config.json: |
+          {{- with secret "secret/data/infrasec/app/backend" -}}
+          {{ .Data.data | toJSON }}
+          {{- end -}}
+        vault.hashicorp.com/agent-inject-perms-config.json: "0400"
+        vault.hashicorp.com/agent-pre-populate: "true"
+        vault.hashicorp.com/agent-pre-populate-only: "false"
+        vault.hashicorp.com/agent-inject-token: "false"
+        vault.hashicorp.com/agent-run-as-same-user: "true"
+        vault.hashicorp.com/agent-run-as-group: "1000"
+        vault.hashicorp.com/agent-set-security-context: "true"
+        vault.hashicorp.com/agent-service-account-token-volume-name: vault-auth
+        vault.hashicorp.com/template-static-secret-render-interval: "15s"
+        vault.hashicorp.com/tls-secret: vault-agent-ca
+        vault.hashicorp.com/ca-cert: /vault/tls/ca.crt
+        vault.hashicorp.com/tls-server-name: infrasec-vault-active.infrasec-vault.svc
+        vault.hashicorp.com/agent-json-patch: >-
+          [{"op":"add","path":"/securityContext","value":{"runAsNonRoot":true,"runAsUser":1000,"runAsGroup":1000,"allowPrivilegeEscalation":false,"readOnlyRootFilesystem":true,"capabilities":{"drop":["ALL"]},"seccompProfile":{"type":"RuntimeDefault"}}}]
+        vault.hashicorp.com/agent-init-json-patch: >-
+          [{"op":"add","path":"/securityContext","value":{"runAsNonRoot":true,"runAsUser":1000,"runAsGroup":1000,"allowPrivilegeEscalation":false,"readOnlyRootFilesystem":true,"capabilities":{"drop":["ALL"]},"seccompProfile":{"type":"RuntimeDefault"}}}]
+    spec:
+      serviceAccountName: backend-sa
+      imagePullSecrets:
+        - name: infrasec-registry
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - name: vault-auth
+          projected:
+            defaultMode: 0440
+            sources:
+              - serviceAccountToken:
+                  audience: vault
+                  expirationSeconds: 600
+                  path: token
+        - name: tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: 16Mi
+      containers:
+        - name: app
+          image: INFRASEC_APP_IMAGE
+          imagePullPolicy: IfNotPresent
+          command: [uvicorn]
+          args: ["infrasec.backend:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000", "--no-access-log"]
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: VAULT_CONFIG_FILE
+              value: /vault/secrets/config.json
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+            seccompProfile:
+              type: RuntimeDefault
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 96Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
